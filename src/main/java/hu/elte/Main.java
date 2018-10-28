@@ -1,21 +1,95 @@
 package hu.elte;
 
+import hu.elte.algorithm.Algorithm;
 import hu.elte.graph.Graph;
 import hu.elte.graph.GraphReader;
 import hu.elte.jms.engine.Client;
-import hu.elte.jms.engine.Server;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 
 public class Main {
 
+     private static List<Client> clients=new ArrayList<>();
+     private static Graph graph;
+     private static List<String> msgs=new LinkedList<>();
+
+    public Main(){}
+
+
     public static void main(String[] args){
 
-        //GraphReader gr=new GraphReader("graph.txt");
-        //Graph g = gr.graphFromFile();
-        //g.tooString();
-        Server server=new Server(12345);
-        server.handleClients();
-        Client client=new Client("localhost", 12345);
+        //Main main=new Main();
+        //graph = main.readGraph();
+        //graph.tooString();
+
+        //main.createClients();
+        //main.createQueues();
+        //clients.get(0).getProducer().send("ddddddddd","b");
+        //clients.get(0).getProducer().send("halo","a");
+        //for(Client client:clients){
+            //System.out.println(client.getConsumer().getMessage()+" "+client.toSting());
+        //}
+        //System.out.println(msgs.size());
+
+        Algorithm algorithm=new Algorithm();
+        algorithm.createClients();
+        algorithm.createQueues();
+        //toString
+        //algorithm.getGraph().tooString();
+        algorithm.computeAlgorithm(algorithm.getGraph().getVerticies().get(0),
+                algorithm.getGraph().getVerticies().get(5));
+
+        System.out.println(algorithm.toString());
+
+
+
 
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private Graph readGraph(){
+        GraphReader gr=new GraphReader("graph.txt");
+        Graph g = gr.graphFromFile();
+        return g;
+    }
+
+    private void createQueues(){
+        for (Client client : clients){
+            client.createQueues();
+        }
+    }
+
+    private void createClients(){
+        for (int i = 0; i< graph.getVerticies().size(); i++){
+            clients.add(new Client(i, graph.getVerticies().get(i)));
+            //System.out.println(clients.get(i).toSting());
+        }
+    }
+
+    public static void recieve(String msg){
+        msgs.add(msg);
+    }
+
+
+
+
+
+
+
 }

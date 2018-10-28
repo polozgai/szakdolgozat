@@ -4,10 +4,16 @@ public class VertexPair {
 
     private Vertex v1;
     private Vertex v2;
+    private Edge edge;
 
-    public VertexPair(Vertex v1, Vertex v2){
+    public VertexPair(Vertex v1, Vertex v2, Edge edge){
         this.v1=v1;
         this.v2=v2;
+        this.edge=edge;
+    }
+
+    public Edge getEdge() {
+        return edge;
     }
 
     public boolean contains(Vertex v){
@@ -35,7 +41,7 @@ public class VertexPair {
     }
 
     public String toString(){
-        return v1.toString()+" " + v2.toString();
+        return v1.toString()+" " + v2.toString()+ " " + edge.toString();
     }
 
     @Override

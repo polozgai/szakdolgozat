@@ -1,5 +1,7 @@
 package hu.elte.graph;
 
+import javax.jms.Queue;
+
 public class Edge {
 
     private double weight;
@@ -7,6 +9,7 @@ public class Edge {
     public Edge(double weight){
         this.weight=weight;
     }
+
 
     public double getWeight(){
         return weight;

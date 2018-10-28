@@ -1,5 +1,6 @@
 package hu.elte.graph;
 
+
 import java.util.*;
 
 public class Graph {
@@ -23,24 +24,29 @@ public class Graph {
         }
         int v1_index=verticies.indexOf(v1);
         int v2_index=verticies.indexOf(v2);
-        verticies.get(v1_index).addNeighbour(v2);
-        verticies.get(v2_index).addNeighbour(v1);
+        verticies.get(v1_index).getNeighbours().add(v2);
+        verticies.get(v2_index).getNeighbours().add(v1);
     }
 
 
     public void addEdge(Edge e, Vertex v1, Vertex v2){
-        VertexPair p=new VertexPair(v1,v2);
+        VertexPair p=new VertexPair(v1,v2,e);
         if(!vertexPairs.contains(p)){
            vertexPairs.add(p);
         }
         if(!edges.containsValue(p)){
             edges.put(p,e);
         }
+        int v1_index=verticies.indexOf(v1);
+        int v2_index=verticies.indexOf(v2);
+        verticies.get(v1_index).getEdges().put(v2,e);
+        verticies.get(v2_index).getEdges().put(v1,e);
     }
 
     public List<Vertex> getVerticies(){
         return verticies;
     }
+
 
     public Map<VertexPair,Edge> getEdges(){
         return edges;
@@ -57,7 +63,9 @@ public class Graph {
     }
 
 
-
+    public void cutGraphByEdges(){
+        
+    }
 
 
 
@@ -71,9 +79,13 @@ public class Graph {
             System.out.println(v.toString());
         }
         System.out.println("Edges");
-        for(Map.Entry<VertexPair,Edge> entry: edges.entrySet()){
-            System.out.println(entry.getKey() + "/" + entry.getValue());
+        for(Vertex v:verticies){
+            System.out.println(v.toString()+": ");
+            for(Map.Entry<Vertex,Edge> entry: v.getEdges().entrySet()){
+                System.out.println(entry.getKey() + "/" + entry.getValue());
+            }
         }
+
         System.out.println("Pairs");
         for(VertexPair pair: vertexPairs){
             System.out.println(pair.toString());
@@ -81,8 +93,12 @@ public class Graph {
         System.out.println("Neighbours");
         Vertex v=verticies.get(1);
         System.out.println(v.getNeighbours().size());
-        for(Vertex p: v.getNeighbours()){
+        for(Vertex p: v.getNeighbours()) {
             System.out.println(p.toString());
+        }
+        System.out.println("Queues");
+        for(Vertex k:verticies){
+
         }
     }
 

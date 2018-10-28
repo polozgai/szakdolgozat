@@ -1,19 +1,34 @@
 package hu.elte.graph;
 
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Vertex {
 
     private String name;
+    private VertexState state;
+    private List<Vertex> neighbours=new LinkedList<>();
+    private Map<Vertex,Edge> edges=new HashMap<>();
+    private List<Edge> cuttedEdges=new LinkedList<>();
+    private Vertex parent=null;
 
-    private Set<Vertex> neighbours=new HashSet<>();
 
     public Vertex(String name){
         this.name=name;
+        this.state=VertexState.PASSIVE;
+    }
+
+
+    public void setParent(Vertex parent) {
+        this.parent = parent;
+    }
+
+    public Vertex getParent() {
+        return parent;
+    }
+
+    public void setState(VertexState state) {
+        this.state = state;
     }
 
     public String getName(){
@@ -28,12 +43,20 @@ public class Vertex {
         return name;
     }
 
-    public void addNeighbour(Vertex v){
-        neighbours.add(v);
+    public VertexState getState() {
+        return state;
     }
 
-    public Set<Vertex> getNeighbours(){
+    public List<Vertex> getNeighbours(){
         return neighbours;
+    }
+
+    public Map<Vertex, Edge> getEdges(){
+        return edges;
+    }
+    
+    public List<Edge> getCuttedEdges(){
+        return cuttedEdges;
     }
 
     @Override
