@@ -7,10 +7,12 @@ public class Vertex {
 
     private String name;
     private VertexState state;
-    private List<Vertex> neighbours=new LinkedList<>();
+    private List<Vertex> neighbours=new ArrayList<>();
     private Map<Vertex,Edge> edges=new HashMap<>();
-    private List<Edge> cuttedEdges=new LinkedList<>();
     private Vertex parent=null;
+    private double distance=0;
+
+    private Map<VertexRoute,Double> routes=new LinkedHashMap<>();
 
 
     public Vertex(String name){
@@ -18,6 +20,14 @@ public class Vertex {
         this.state=VertexState.PASSIVE;
     }
 
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
 
     public void setParent(Vertex parent) {
         this.parent = parent;
@@ -54,9 +64,21 @@ public class Vertex {
     public Map<Vertex, Edge> getEdges(){
         return edges;
     }
-    
-    public List<Edge> getCuttedEdges(){
-        return cuttedEdges;
+
+    public Map<VertexRoute, Double> getRoutes() {
+        return routes;
+    }
+
+    public void setRoutes(Map<VertexRoute, Double> routes) {
+        this.routes = routes;
+    }
+
+    public void setNeighboursState(Vertex v, VertexState vertexState){
+        for(Vertex i:neighbours){
+            if(i.equals(v)){
+                i.setState(vertexState);
+            }
+        }
     }
 
     @Override
@@ -73,4 +95,52 @@ public class Vertex {
     public int hashCode() {
         return name.hashCode();
     }
+
+
+    public String routesToMessage(){
+        String s="";
+        int j=0;
+        for(Map.Entry<VertexRoute,Double> i:routes.entrySet()){
+            if(j==routes.size()-1){
+                s+=i.getKey()+" "+i.getValue();
+            }else{
+                s+=i.getKey()+" "+i.getValue()+";";
+            }
+            j++;
+        }
+        return s;
+    }
+
+    public void processRoutes(String msg){
+        try {
+            String[] array=msg.split(";");
+            for(String i:array){
+                String[] arr=i.split(" ");
+                VertexRoute tempRoute=new VertexRoute(new Vertex(arr[0]),new Vertex(arr[1]));
+                Double tempDouble=Double.parseDouble(arr[2]);
+                //routes.put(tempRoute,tempDouble);
+                Set<VertexRoute> keySet=routes.keySet();
+                VertexRoute tempKey=new VertexRoute(new Vertex(name),new Vertex(tempRoute.getV2().getName()));
+                VertexRoute tempKey2=new VertexRoute(new Vertex(name),new Vertex(tempRoute.getV1().getName()));
+                Double previous=routes.get(tempKey);
+                if(keySet.contains(tempKey)){
+                    Double halfRoute=routes.get(tempKey2);
+                    VertexRoute key=new VertexRoute(new Vertex(name),new Vertex(tempRoute.getV2().getName()));
+                    if(halfRoute+tempDouble<previous){
+                        //ha intellij-ben vagy nem hiba ha pirossal aláhúzza!!!
+                        routes.replace(key,previous,halfRoute+tempDouble);
+                        key.getPrivious().add(tempRoute.getV1());
+                    }
+                }
+            }
+        }catch (Exception e){}
+    }
+
+
+
+
+
+
+
+
 }

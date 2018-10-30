@@ -6,13 +6,13 @@ import java.util.*;
 public class Graph {
 
     private List<Vertex> verticies;
-    private List<VertexPair> vertexPairs;
-    private Map<VertexPair, Edge> edges;
+    private List<VertexRoute> vertexRoutes;
+    private Map<VertexRoute, Edge> edges;
 
     public Graph(){
         verticies = new ArrayList<Vertex>();
-        vertexPairs = new ArrayList<VertexPair>();
-        edges = new HashMap<VertexPair, Edge>();
+        vertexRoutes = new ArrayList<VertexRoute>();
+        edges = new HashMap<VertexRoute, Edge>();
     }
 
     public void addVertex( Vertex v1 ,Vertex v2){
@@ -30,17 +30,21 @@ public class Graph {
 
 
     public void addEdge(Edge e, Vertex v1, Vertex v2){
-        VertexPair p=new VertexPair(v1,v2,e);
-        if(!vertexPairs.contains(p)){
-           vertexPairs.add(p);
+        VertexRoute p1=new VertexRoute(v1,v2);
+        VertexRoute p2=new VertexRoute(v2,v1);
+        if(!vertexRoutes.contains(p1)){
+           vertexRoutes.add(p1);
         }
-        if(!edges.containsValue(p)){
-            edges.put(p,e);
+        if(!edges.containsValue(p1)){
+            edges.put(p1,e);
         }
         int v1_index=verticies.indexOf(v1);
         int v2_index=verticies.indexOf(v2);
         verticies.get(v1_index).getEdges().put(v2,e);
         verticies.get(v2_index).getEdges().put(v1,e);
+        //routes adding
+        verticies.get(v1_index).getRoutes().put(p1,e.getWeight());
+        verticies.get(v2_index).getRoutes().put(p2,e.getWeight());
     }
 
     public List<Vertex> getVerticies(){
@@ -48,13 +52,13 @@ public class Graph {
     }
 
 
-    public Map<VertexPair,Edge> getEdges(){
+    public Map<VertexRoute,Edge> getEdges(){
         return edges;
     }
 
     public List<Vertex> getNeighbours(Vertex v){
         List<Vertex> neighbours=new ArrayList<>();
-        for(VertexPair p : vertexPairs){
+        for(VertexRoute p : vertexRoutes){
             if(p.contains(v)){
                 neighbours.add(p.anotherVertex(v));
             }
@@ -86,9 +90,9 @@ public class Graph {
             }
         }
 
-        System.out.println("Pairs");
-        for(VertexPair pair: vertexPairs){
-            System.out.println(pair.toString());
+        System.out.println("Routes");
+        for(Vertex v: verticies){
+            System.out.println(v.getRoutes().toString());
         }
         System.out.println("Neighbours");
         Vertex v=verticies.get(1);

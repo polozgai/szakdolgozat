@@ -44,6 +44,8 @@ public class Main {
 
         System.out.println(algorithm.toString());
 
+        //algorithm.getGraph().tooString();
+
 
 
 

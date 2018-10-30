@@ -39,7 +39,7 @@ public class Producer {
 
     public void send(String message, String queueName){
         try{
-            String msg=AlgorithmMessage.create(producerName,message);
+            String msg=AlgorithmMessage.create(producerName,message,queueName);
             create(queueName);
             TextMessage textMessage=session.createTextMessage(msg);
             messageProducer.send(textMessage);

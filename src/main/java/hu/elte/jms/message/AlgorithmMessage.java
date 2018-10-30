@@ -9,19 +9,21 @@ public class AlgorithmMessage implements Serializable {
 
     private String producerName;
     private String text;
+    private String consumerName;
 
-    private AlgorithmMessage(String producerName, String text){
+    private AlgorithmMessage(String producerName, String text,String consumerName){
         this.producerName=producerName;
         this.text=text;
+        this.consumerName=consumerName;
     }
 
-    public static String create(String producerName,String text){
-        AlgorithmMessage algorithmMessage=new AlgorithmMessage(producerName,text);
+    public static String create(String producerName,String text,String consumerName){
+        AlgorithmMessage algorithmMessage=new AlgorithmMessage(producerName,text,consumerName);
         return algorithmMessage.toString();
     }
 
     public String toString(){
-        return producerName+" -> "+text;
+        return producerName+"->"+consumerName+":"+text;
     }
 
 }

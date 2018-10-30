@@ -1,8 +1,6 @@
 package hu.elte.jms.consumer;
 
-import hu.elte.Main;
 import hu.elte.algorithm.Algorithm;
-import hu.elte.jms.engine.Client;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.*;
@@ -55,7 +53,7 @@ public class Consumer implements MessageListener{
         TextMessage textMessage=(TextMessage) message;
         try {
             Algorithm.getMessages(textMessage.getText());
-            System.out.println(textMessage.getText()+" "+consumerName);
+            System.out.println(textMessage.getText());
         } catch (JMSException e) {
             e.printStackTrace();
         }
