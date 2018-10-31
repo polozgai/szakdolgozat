@@ -2,8 +2,12 @@ package hu.elte.algorithm;
 
 import hu.elte.graph.*;
 import hu.elte.jms.engine.Client;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class Algorithm {
 
@@ -32,14 +36,21 @@ public class Algorithm {
         setRoutes();
 
         mapNeighbours();
-
-
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         String val=messages.get(graph.getVerticies().get(2));
+        System.out.println("val: "+val);
         graph.getVerticies().get(2).processRoutes(val);
-
-
         System.out.println(graph.getVerticies().get(2).getRoutes().toString());
-        System.out.println("List.Messages");
+
+
+
+
+
+        //System.out.println("List.Messages");
 
     }
 
@@ -125,9 +136,20 @@ public class Algorithm {
 
 
     public static void getMessages(String msg){
-        String[] arr=msg.split(":");
+        /*String[] arr=msg.split(":");
         String[] arr2=arr[0].split("->");
-        messages.put(new Vertex(arr2[1]),arr[1]);
+        messages.put(new Vertex(arr2[1]),arr[1]);*/
+        JSONParser parser=new JSONParser();
+        try {
+            JSONObject object=(JSONObject) parser.parse(msg);
+            String producerName=(String) object.get("producerName");
+            String text=(String) object.get("message");
+            String consumerName=(String) object.get("consumerName");
+            messages.put(new Vertex(consumerName),text);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void createQueues(){

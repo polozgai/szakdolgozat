@@ -1,6 +1,11 @@
 package hu.elte.graph;
 
 
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 import java.util.*;
 
 public class Vertex {
@@ -98,42 +103,52 @@ public class Vertex {
 
 
     public String routesToMessage(){
-        String s="";
-        int j=0;
+        JSONArray list=new JSONArray();
         for(Map.Entry<VertexRoute,Double> i:routes.entrySet()){
-            if(j==routes.size()-1){
-                s+=i.getKey()+" "+i.getValue();
-            }else{
-                s+=i.getKey()+" "+i.getValue()+";";
-            }
-            j++;
+            JSONObject obj=new JSONObject();
+            obj.put("key",i.getKey().getV1()+" "+i.getKey().getV2());
+            obj.put("value",i.getValue());
+            list.add(obj);
         }
-        return s;
+        return list.toString();
     }
 
     public void processRoutes(String msg){
-        try {
-            String[] array=msg.split(";");
-            for(String i:array){
-                String[] arr=i.split(" ");
+        JSONParser parser=new JSONParser();
+        try{
+            Object object=parser.parse(msg);
+            JSONArray array=(JSONArray) object;
+            //System.out.println("array: "+array.toString());
+            Iterator<JSONObject> it=array.iterator();
+            while(it.hasNext()){
+                JSONObject temp=it.next();
+                Double value=(Double) temp.get("value");
+                String key=(String) temp.get("key");
+                String[] arr=key.split(" ");
                 VertexRoute tempRoute=new VertexRoute(new Vertex(arr[0]),new Vertex(arr[1]));
-                Double tempDouble=Double.parseDouble(arr[2]);
-                //routes.put(tempRoute,tempDouble);
                 Set<VertexRoute> keySet=routes.keySet();
                 VertexRoute tempKey=new VertexRoute(new Vertex(name),new Vertex(tempRoute.getV2().getName()));
                 VertexRoute tempKey2=new VertexRoute(new Vertex(name),new Vertex(tempRoute.getV1().getName()));
+                Double halfRoute=routes.get(tempKey2);
                 Double previous=routes.get(tempKey);
                 if(keySet.contains(tempKey)){
-                    Double halfRoute=routes.get(tempKey2);
-                    VertexRoute key=new VertexRoute(new Vertex(name),new Vertex(tempRoute.getV2().getName()));
-                    if(halfRoute+tempDouble<previous){
+                    //VertexRoute key=new VertexRoute(new Vertex(name),new Vertex(tempRoute.getV2().getName()));
+                    if(halfRoute+value<previous){
                         //ha intellij-ben vagy nem hiba ha pirossal aláhúzza!!!
-                        routes.replace(key,previous,halfRoute+tempDouble);
-                        key.getPrivious().add(tempRoute.getV1());
+                        routes.replace(tempKey,previous,halfRoute+value);
+                        tempKey.getPrivious().add(tempRoute.getV1());
                     }
+                }else{
+                    //halfroute
+                    VertexRoute r=new VertexRoute(new Vertex(name),new Vertex(tempRoute.getV2().getName()));
+                    routes.put(r,halfRoute+value);
+                    r.getPrivious().add(tempRoute.getV1());
                 }
+
             }
-        }catch (Exception e){}
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 

@@ -1,29 +1,25 @@
 package hu.elte.jms.message;
 
 import hu.elte.algorithm.Algorithm;
+import org.json.simple.JSONObject;
 
 import java.io.Serializable;
 
 
 public class AlgorithmMessage implements Serializable {
 
-    private String producerName;
-    private String text;
-    private String consumerName;
-
-    private AlgorithmMessage(String producerName, String text,String consumerName){
-        this.producerName=producerName;
-        this.text=text;
-        this.consumerName=consumerName;
-    }
+    private static JSONObject object= new JSONObject();
 
     public static String create(String producerName,String text,String consumerName){
-        AlgorithmMessage algorithmMessage=new AlgorithmMessage(producerName,text,consumerName);
-        return algorithmMessage.toString();
+        object.put("producerName",producerName);
+        object.put("message", text);
+        object.put("consumerName" , consumerName);
+        return object.toString();
     }
 
     public String toString(){
-        return producerName+"->"+consumerName+":"+text;
+        return object.toString();
     }
+
 
 }
