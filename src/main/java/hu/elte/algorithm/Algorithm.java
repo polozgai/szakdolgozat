@@ -16,6 +16,7 @@ public class Algorithm {
     private Vertex startVertex;
     private Vertex endVertex;
     private static Map<Vertex,String> messages=new HashMap<>();
+    private LinkedList<Vertex> mainQueue=new LinkedList<>();
 
 
 
@@ -30,13 +31,17 @@ public class Algorithm {
         //init();
 
         setParent();
+
         for(Vertex v:graph.getVerticies()){
-            //System.out.println(v.toString()+" "+v.getParent()+" "+v.getDistance());
+            System.out.println(v.toString()+" "+v.getParent()+" "+v.getDistance()+" "+v.getChildNumber());
         }
-        setRoutes();
+
+        for (Vertex i:mainQueue){
+            //System.out.println(i.getName());
+        }
 
         mapNeighbours();
-        try {
+        /*try {
             TimeUnit.SECONDS.sleep(1);
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -45,39 +50,52 @@ public class Algorithm {
         System.out.println("val: "+val);
         graph.getVerticies().get(2).processRoutes(val);
         System.out.println(graph.getVerticies().get(2).getRoutes().toString());
+        */
+        System.out.println(graph.getVerticies().get(0).getRoutes());
 
+        System.out.println("List.Messages");
 
+}
 
-
-
-        //System.out.println("List.Messages");
-
+    //nem kell benne van a setParentben
+    public void setVertexChildNumber(){
+        for(Vertex v:graph.getVerticies()){
+            v.getParent().childNumberIncrease();
+        }
     }
 
 
     public void mapNeighbours(){
-        for(Vertex v:graph.getVerticies()){
+        while(!mainQueue.isEmpty()){
+            Vertex v=mainQueue.getLast();
+            Client tempClient=getClient(v);
+            if(!v.equals(v.getParent())){
+                tempClient.getProducer().send(v.routesToMessage(),v.getParent().getName());
+            }
+            mainQueue.removeLast();
+        }
+        /*for(Vertex v:graph.getVerticies()){
             Client tempClient=getClient(v);
             Vertex parent=v.getParent();
             if(v.equals(parent)){
                 continue;
             }
             tempClient.getProducer().send(v.routesToMessage(),parent.getName());
-        }
+        }*/
     }
 
 
-
+    //nem kell benne van a setParentben a Clientben a feldolgozásban
     public void setRoutes(){
         for(Vertex v:graph.getVerticies()){
-            Vertex p=v.getParent();
-            if(v.equals(p)){
+            Vertex parent=v.getParent();
+            if(v.equals(parent)){
                 continue;
             }
             Iterator<Map.Entry<VertexRoute,Double>> it=v.getRoutes().entrySet().iterator();
             while(it.hasNext()){
                 Map.Entry<VertexRoute,Double> entry=it.next();
-                if(entry.getKey().contains(p)){
+                if(entry.getKey().contains(parent)){
                     it.remove();
                 }
             }
@@ -89,21 +107,29 @@ public class Algorithm {
     public void setParent(){
         LinkedList<Vertex> queue=new LinkedList<>();
         queue.add(startVertex);
+        mainQueue.add(startVertex);
+        //itt kéne még a saját distance esetleg
         startVertex.setParent(startVertex);
         while (!queue.isEmpty()){
             Vertex v=queue.getFirst();
-            Client tempClient=getClient(v);
             for(Vertex i: v.getNeighbours()){
-                if(i.getParent()==null){
+                if(i.getParent()==null && i.getNeighbours().size()!=0){
+                    Client tempClient=getClient(i);
+                    tempClient.getProducer().send(i.distanceToMessage(v),i.getName());
+                    tempClient.getProducer().send(i.parentToMessage(v),i.getName());
                     queue.add(i);
-                    i.setDistance(v.getEdges().get(i).getWeight());
-                    i.setParent(v);
+                    mainQueue.add(i);
+                    //i.setDistance(v.getEdges().get(i).getWeight());
+                    //i.setDistance(i.getEdges().get(v).getWeight());
+                    //i.setParent(v);
+                    v.childNumberIncrease();
                 }
             }
             queue.removeFirst();
         }
     }
 
+    //nem kell
     public void init(){
         LinkedList<Vertex> queue=new LinkedList<>();
         while(!queue.isEmpty()){

@@ -15,6 +15,7 @@ public class Vertex {
     private List<Vertex> neighbours=new ArrayList<>();
     private Map<Vertex,Edge> edges=new HashMap<>();
     private Vertex parent=null;
+    private int childNumber=0;
     private double distance=0;
 
     private Map<VertexRoute,Double> routes=new LinkedHashMap<>();
@@ -25,6 +26,22 @@ public class Vertex {
         this.state=VertexState.PASSIVE;
     }
 
+    public int childNumberIncrease() {
+        return childNumber++;
+    }
+
+    public int getChildNumber() {
+        return childNumber;
+    }
+
+    public Vertex getNeighbourByName(String name){
+        for (Vertex i:neighbours){
+            if(i.getName().equals(name)){
+                return i;
+            }
+        }
+        return null;
+    }
 
     public double getDistance() {
         return distance;
@@ -103,6 +120,7 @@ public class Vertex {
 
 
     public String routesToMessage(){
+        JSONObject object=new JSONObject();
         JSONArray list=new JSONArray();
         for(Map.Entry<VertexRoute,Double> i:routes.entrySet()){
             JSONObject obj=new JSONObject();
@@ -110,7 +128,8 @@ public class Vertex {
             obj.put("value",i.getValue());
             list.add(obj);
         }
-        return list.toString();
+        object.put("SEND_ROUTES",list);
+        return object.toString();
     }
 
     public void processRoutes(String msg){
@@ -152,10 +171,28 @@ public class Vertex {
     }
 
 
+    public String distanceToMessage(Vertex v) {
+        JSONObject object=new JSONObject();
+        object.put("SET_DISTANCE",edges.get(v).getWeight());
+        return  object.toString();
+    }
 
+    public String parentToMessage(Vertex v) {
+        JSONObject object=new JSONObject();
+        int index_of=neighbours.indexOf(v);
+        object.put("SET_PARENT",neighbours.get(index_of).getName());
+        return  object.toString();
+    }
 
-
-
-
-
+    public void deleteParentFromRoutes(){
+        if(!this.equals(parent)){
+            Iterator<Map.Entry<VertexRoute,Double>> it=routes.entrySet().iterator();
+            while(it.hasNext()){
+                Map.Entry<VertexRoute,Double> entry=it.next();
+                if(entry.getKey().contains(parent)){
+                    it.remove();
+                }
+            }
+        }
+    }
 }
