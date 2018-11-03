@@ -8,6 +8,7 @@ import hu.elte.jms.engine.Client;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 
 public class Main {
@@ -41,13 +42,18 @@ public class Main {
         //algorithm.getGraph().tooString();
         algorithm.computeAlgorithm(algorithm.getGraph().getVerticies().get(0),
                 algorithm.getGraph().getVerticies().get(5));
-
+        algorithm.closeClients();
         System.out.println(algorithm.toString());
 
         //algorithm.getGraph().tooString();
 
+        /*Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
+        for (Thread i:threadSet){
+            System.out.println(i.getName());
+            i.stop();
+        }*/
 
-
+        //System.exit(0);
 
 
     }

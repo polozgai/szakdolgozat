@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 
-public class Client implements Runnable,MessageListener {
+public class Client implements MessageListener {
 
     private int id;
     private Vertex vertex;
@@ -38,7 +38,7 @@ public class Client implements Runnable,MessageListener {
     }
 
 
-    @Override
+    /*@Override
     public void run() {
         boolean run=true;
         while(run){
@@ -50,7 +50,7 @@ public class Client implements Runnable,MessageListener {
             }
             run=false;
         }
-    }
+    }*/
 
     @Override
     public void onMessage(Message message) {
@@ -127,12 +127,25 @@ public class Client implements Runnable,MessageListener {
 
     private void partMessageProcessing(String key,String value){
         switch (key){
-            case "SET_DISTANCE":    vertex.setDistance(Double.parseDouble(value));break;
+            case "SET_DISTANCE":    vertex.setDistance(Double.parseDouble(value));
+                                    break;
 
             case "SET_PARENT":  vertex.setParent(vertex.getNeighbourByName(value));
                                 vertex.deleteParentFromRoutes();
                                 break;
-            case "SEND_ROUTES": System.out.println(value);vertex.processRoutes(value);break;
+            case "SEND_ROUTES": System.out.println(value);
+                                vertex.processRoutes(value);
+                                //vertex.decreaseMessagesToChildrenNumber();
+                                //checkMessagesToChildrenNumber();
+                                //consumer.close();
+                                break;
+        }
+    }
+
+    private void checkMessagesToChildrenNumber(){
+        if(vertex.getMessagesToChildrenNumber()==0){
+            System.out.println("Connection closed "+vertex.getName());
+            consumer.close();
         }
     }
 

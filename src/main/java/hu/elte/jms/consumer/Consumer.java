@@ -34,6 +34,8 @@ public class Consumer /*implements MessageListener*/{
     public void close(){
         try {
             connection.close();
+            session.close();
+            messageConsumer.close();
         } catch (JMSException e) {
 
         }

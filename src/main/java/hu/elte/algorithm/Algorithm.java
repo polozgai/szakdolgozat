@@ -7,7 +7,6 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 public class Algorithm {
 
@@ -31,9 +30,9 @@ public class Algorithm {
         //init();
 
         setParent();
-
+        //createQueues();
         for(Vertex v:graph.getVerticies()){
-            System.out.println(v.toString()+" "+v.getParent()+" "+v.getDistance()+" "+v.getChildNumber());
+            System.out.println(v.toString()+" "+v.getParent()+" "+v.getDistance()+" "+v.getMessagesToChildrenNumber());
         }
 
         for (Vertex i:mainQueue){
@@ -51,18 +50,14 @@ public class Algorithm {
         graph.getVerticies().get(2).processRoutes(val);
         System.out.println(graph.getVerticies().get(2).getRoutes().toString());
         */
-        System.out.println(graph.getVerticies().get(0).getRoutes());
+        VertexRoute temp=new VertexRoute(start,end);
+        System.out.println(startVertex.getRoutes().get(temp));
 
         System.out.println("List.Messages");
 
 }
 
-    //nem kell benne van a setParentben
-    public void setVertexChildNumber(){
-        for(Vertex v:graph.getVerticies()){
-            v.getParent().childNumberIncrease();
-        }
-    }
+
 
 
     public void mapNeighbours(){
@@ -108,7 +103,6 @@ public class Algorithm {
         LinkedList<Vertex> queue=new LinkedList<>();
         queue.add(startVertex);
         mainQueue.add(startVertex);
-        //itt kéne még a saját distance esetleg
         startVertex.setParent(startVertex);
         while (!queue.isEmpty()){
             Vertex v=queue.getFirst();
@@ -122,28 +116,8 @@ public class Algorithm {
                     //i.setDistance(v.getEdges().get(i).getWeight());
                     //i.setDistance(i.getEdges().get(v).getWeight());
                     //i.setParent(v);
-                    v.childNumberIncrease();
+                    v.increaseMessagesToChildrenNumber();
                 }
-            }
-            queue.removeFirst();
-        }
-    }
-
-    //nem kell
-    public void init(){
-        LinkedList<Vertex> queue=new LinkedList<>();
-        while(!queue.isEmpty()){
-            Vertex v=queue.getFirst();
-            Client tempClient=getClient(v);
-            for (Vertex i: v.getNeighbours()){
-                if (i.getState()==VertexState.PASSIVE){
-                    queue.add(i);
-                    tempClient.getProducer().send(v.getEdges().get(i).toString(),i.getName());
-                }
-            }
-            v.setState(VertexState.ACTIVE);
-            for(Vertex i:queue){
-                i.setNeighboursState(v,VertexState.ACTIVE);
             }
             queue.removeFirst();
         }
@@ -162,9 +136,6 @@ public class Algorithm {
 
 
     public static void getMessages(String msg){
-        /*String[] arr=msg.split(":");
-        String[] arr2=arr[0].split("->");
-        messages.put(new Vertex(arr2[1]),arr[1]);*/
         JSONParser parser=new JSONParser();
         try {
             JSONObject object=(JSONObject) parser.parse(msg);
@@ -183,6 +154,7 @@ public class Algorithm {
             client.createQueues();
         }
     }
+
 
     public void createClients(){
         for (int i = 0; i< graph.getVerticies().size(); i++){
@@ -223,5 +195,11 @@ public class Algorithm {
     @Override
     public String toString() {
         return startVertex.toString()+" "+endVertex.toString()+" Msg size: "+messages.size();
+    }
+
+    public void closeClients() {
+        for(Client i:clients){
+            i.getConsumer().close();
+        }
     }
 }

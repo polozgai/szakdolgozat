@@ -43,6 +43,7 @@ public class Producer {
             create(queueName);
             TextMessage textMessage=session.createTextMessage(msg);
             messageProducer.send(textMessage);
+            close();
         }catch (JMSException e){}
 
     }

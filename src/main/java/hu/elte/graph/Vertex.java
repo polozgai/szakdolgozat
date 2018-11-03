@@ -11,11 +11,10 @@ import java.util.*;
 public class Vertex {
 
     private String name;
-    private VertexState state;
     private List<Vertex> neighbours=new ArrayList<>();
     private Map<Vertex,Edge> edges=new HashMap<>();
     private Vertex parent=null;
-    private int childNumber=0;
+    private int messagesToChildrenNumber =0;
     private double distance=0;
 
     private Map<VertexRoute,Double> routes=new LinkedHashMap<>();
@@ -23,15 +22,14 @@ public class Vertex {
 
     public Vertex(String name){
         this.name=name;
-        this.state=VertexState.PASSIVE;
     }
 
-    public int childNumberIncrease() {
-        return childNumber++;
+    public void increaseMessagesToChildrenNumber() {
+         messagesToChildrenNumber++;
     }
 
-    public int getChildNumber() {
-        return childNumber;
+    public int getMessagesToChildrenNumber() {
+        return messagesToChildrenNumber;
     }
 
     public Vertex getNeighbourByName(String name){
@@ -59,10 +57,6 @@ public class Vertex {
         return parent;
     }
 
-    public void setState(VertexState state) {
-        this.state = state;
-    }
-
     public String getName(){
         return name;
     }
@@ -75,9 +69,6 @@ public class Vertex {
         return name;
     }
 
-    public VertexState getState() {
-        return state;
-    }
 
     public List<Vertex> getNeighbours(){
         return neighbours;
@@ -91,17 +82,6 @@ public class Vertex {
         return routes;
     }
 
-    public void setRoutes(Map<VertexRoute, Double> routes) {
-        this.routes = routes;
-    }
-
-    public void setNeighboursState(Vertex v, VertexState vertexState){
-        for(Vertex i:neighbours){
-            if(i.equals(v)){
-                i.setState(vertexState);
-            }
-        }
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -194,5 +174,9 @@ public class Vertex {
                 }
             }
         }
+    }
+
+    public void decreaseMessagesToChildrenNumber() {
+        messagesToChildrenNumber--;
     }
 }
