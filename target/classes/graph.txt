@@ -7,3 +7,4 @@ c e 5
 c f 4
 d e 4
 e f 0
+f g 0

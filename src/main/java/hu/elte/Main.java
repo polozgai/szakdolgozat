@@ -40,7 +40,7 @@ public class Main {
         algorithm.createQueues();
         //toString
         //algorithm.getGraph().tooString();
-        algorithm.computeAlgorithm("a","f");
+        algorithm.computeAlgorithm("a","g");
         algorithm.closeClients();
         System.out.println(algorithm.toString());
 

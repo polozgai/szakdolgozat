@@ -57,7 +57,8 @@ public class Algorithm {
         graph.getVerticies().get(2).processRoutes(val);
         System.out.println(graph.getVerticies().get(2).getRoutes().toString());
         */
-        System.out.println(graph.getVerticies().get(0).getRoutes().get(4).getPrevious());
+        System.out.println(graph.getVerticies().get(0).getRoutes());
+        //System.out.println(graph.getVerticies().get(0).getRoutes().get(5).getPrevious());
 
         System.out.println("List.Messages");
 
@@ -71,7 +72,14 @@ public class Algorithm {
             Vertex v=mainQueue.getLast();
             Client tempClient=getClient(v);
             if(!v.equals(v.getParent())){
-                tempClient.getProducer().send(v.routesToMessage(),v.getParent().getName());
+                for(Vertex i:v.getNeighbours()){
+                    Vertex real=Graph.getVertexByName(i.getName());
+                    if(real.isActive()){
+                        tempClient.getProducer().send(v.routesToMessage(),i.getName());
+                    }
+                }
+                v.setActive(false);
+                //tempClient.getProducer().send(v.routesToMessage(),v.getParent().getName());
             }
             mainQueue.removeLast();
         }
@@ -104,7 +112,7 @@ public class Algorithm {
                     //i.setDistance(v.getEdges().get(i).getWeight());
                     //i.setDistance(i.getEdges().get(v).getWeight());
                     //i.setParent(v);
-                    v.increaseMessagesToChildrenNumber();
+                    //v.decreaseMessagesToChildrenNumber();
                 }
             }
             queue.removeFirst();

@@ -25,7 +25,7 @@ public class Client implements MessageListener {
     private Consumer consumer;
     private Producer producer;
     private List<Client> neighbours;
-    private  List<String> messages;
+    private List<String> messages;
 
 
     public Client(int id, Vertex vertex){
@@ -108,6 +108,8 @@ public class Client implements MessageListener {
     private void fullMessageProcessing(JSONObject message){
         System.out.println(message.toString());
         String msg= (String) message.get("message");
+        String producerName= (String) message.get("producerName");
+        //vertex.deleteFromNeighbour(producerName);
         JSONParser parser=new JSONParser();
         try {
             JSONObject object=(JSONObject) parser.parse(msg);
