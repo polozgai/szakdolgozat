@@ -5,14 +5,17 @@ import java.util.*;
 
 public class Graph {
 
-    private List<Vertex> verticies;
+    private static List<Vertex> verticies;
+    private List<Vertex> staticVerticies;
     private List<VertexRoute> vertexRoutes;
     private Map<VertexRoute, Edge> edges;
+
 
     public Graph(){
         verticies = new ArrayList<Vertex>();
         vertexRoutes = new ArrayList<VertexRoute>();
         edges = new HashMap<VertexRoute, Edge>();
+        staticVerticies=new ArrayList<>();
     }
 
     public void addVertex( Vertex v1 ,Vertex v2){
@@ -30,8 +33,8 @@ public class Graph {
 
 
     public void addEdge(Edge e, Vertex v1, Vertex v2){
-        VertexRoute p1=new VertexRoute(v1,v2);
-        VertexRoute p2=new VertexRoute(v2,v1);
+        VertexRoute p1=new VertexRoute(v1,v2,e.getWeight());
+        VertexRoute p2=new VertexRoute(v2,v1,e.getWeight());
         if(!vertexRoutes.contains(p1)){
            vertexRoutes.add(p1);
         }
@@ -43,8 +46,8 @@ public class Graph {
         verticies.get(v1_index).getEdges().put(v2,e);
         verticies.get(v2_index).getEdges().put(v1,e);
         //routes adding
-        verticies.get(v1_index).getRoutes().put(p1,e.getWeight());
-        verticies.get(v2_index).getRoutes().put(p2,e.getWeight());
+        verticies.get(v1_index).getRoutes().add(p1);
+        verticies.get(v2_index).getRoutes().add(p2);
     }
 
     public List<Vertex> getVerticies(){
@@ -67,8 +70,13 @@ public class Graph {
     }
 
 
-    public void cutGraphByEdges(){
-        
+    public static Vertex getVertexByName(String name){
+        for (Vertex i:verticies){
+            if (i.getName().equals(name)){
+                return  i;
+            }
+        }
+        return null;
     }
 
 

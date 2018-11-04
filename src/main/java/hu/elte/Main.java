@@ -40,8 +40,7 @@ public class Main {
         algorithm.createQueues();
         //toString
         //algorithm.getGraph().tooString();
-        algorithm.computeAlgorithm(algorithm.getGraph().getVerticies().get(0),
-                algorithm.getGraph().getVerticies().get(5));
+        algorithm.computeAlgorithm("a","f");
         algorithm.closeClients();
         System.out.println(algorithm.toString());
 

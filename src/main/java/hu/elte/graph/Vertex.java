@@ -17,7 +17,7 @@ public class Vertex {
     private int messagesToChildrenNumber =0;
     private double distance=0;
 
-    private Map<VertexRoute,Double> routes=new LinkedHashMap<>();
+    private LinkedList<VertexRoute> routes=new LinkedList<>();
 
 
     public Vertex(String name){
@@ -40,6 +40,7 @@ public class Vertex {
         }
         return null;
     }
+
 
     public double getDistance() {
         return distance;
@@ -78,10 +79,9 @@ public class Vertex {
         return edges;
     }
 
-    public Map<VertexRoute, Double> getRoutes() {
+    public LinkedList<VertexRoute> getRoutes() {
         return routes;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -102,10 +102,16 @@ public class Vertex {
     public String routesToMessage(){
         JSONObject object=new JSONObject();
         JSONArray list=new JSONArray();
-        for(Map.Entry<VertexRoute,Double> i:routes.entrySet()){
+        JSONArray prev=new JSONArray();
+        for(VertexRoute i:routes){
             JSONObject obj=new JSONObject();
-            obj.put("key",i.getKey().getV1()+" "+i.getKey().getV2());
-            obj.put("value",i.getValue());
+            obj.put("key",i.getV1()+" "+i.getV2());
+            obj.put("value",i.getDistance());
+            /*for(Vertex j:i.getPrevious()){
+                prev.add(j.getName());
+            }*/
+            prev.add(i.getPrevious().toString());
+            obj.put("previous",i.getPrevious().toString());
             list.add(obj);
         }
         object.put("SEND_ROUTES",list);
@@ -120,34 +126,62 @@ public class Vertex {
             //System.out.println("array: "+array.toString());
             Iterator<JSONObject> it=array.iterator();
             while(it.hasNext()){
-                JSONObject temp=it.next();
-                Double value=(Double) temp.get("value");
-                String key=(String) temp.get("key");
+                JSONObject innnerObject=it.next();
+                Double value=(Double) innnerObject.get("value");
+                String key=(String) innnerObject.get("key");
                 String[] arr=key.split(" ");
-                VertexRoute tempRoute=new VertexRoute(new Vertex(arr[0]),new Vertex(arr[1]));
-                Set<VertexRoute> keySet=routes.keySet();
-                VertexRoute tempKey=new VertexRoute(new Vertex(name),new Vertex(tempRoute.getV2().getName()));
-                VertexRoute tempKey2=new VertexRoute(new Vertex(name),new Vertex(tempRoute.getV1().getName()));
-                Double halfRoute=routes.get(tempKey2);
-                Double previous=routes.get(tempKey);
-                if(keySet.contains(tempKey)){
-                    //VertexRoute key=new VertexRoute(new Vertex(name),new Vertex(tempRoute.getV2().getName()));
+                String array1= (String) innnerObject.get("previous");
+                array1=array1.substring(1,array1.length()-1);
+                String[] array2=array1.split(",");
+                //System.out.println(name+" - "+array1.toString());
+                Vertex vertex=getNeighbourByName(arr[1]);
+                Vertex neighbour=getNeighbourByName(arr[0]);
+                Double halfRoute=getEdgeByName(arr[0]);
+                if(vertex!=null){
+                    Double previous=getEdgeByName(arr[1]);
                     if(halfRoute+value<previous){
-                        //ha intellij-ben vagy nem hiba ha pirossal aláhúzza!!!
-                        routes.replace(tempKey,previous,halfRoute+value);
-                        tempKey.getPrivious().add(tempRoute.getV1());
+                        setRouteDistence(name,arr[1],neighbour,halfRoute+value);
                     }
                 }else{
-                    //halfroute
-                    VertexRoute r=new VertexRoute(new Vertex(name),new Vertex(tempRoute.getV2().getName()));
-                    routes.put(r,halfRoute+value);
-                    r.getPrivious().add(tempRoute.getV1());
-                }
+                    VertexRoute route=new VertexRoute(new Vertex(name),new Vertex(arr[1]),halfRoute+value);
+                    route.getPrevious().add(neighbour);
+                    for (String i:array2){
+                        if(!i.equals("")){
+                            route.getPrevious().add(Graph.getVertexByName(i));
+                        }
+                    }
+                    deletePrevious(name,arr[1]);
+                    routes.add(route);
 
+                }
             }
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private void deletePrevious(String name, String s) {
+        for(VertexRoute i:routes){
+            if(i.getV1().getName().equals(name) && i.getV2().getName().equals(s)){
+                routes.remove(i);
+                break;
+            }
+        }
+    }
+
+    private void setRouteDistence(String s, String s1,Vertex vertex, Double distance){
+        for(VertexRoute i:routes){
+            if(i.getV1().getName().equals(s) && i.getV2().getName().equals(s1)){
+                i.setDistance(distance);
+                i.getPrevious().add(vertex);
+                break;
+            }
+        }
+    }
+
+    private Double getEdgeByName(String s) {
+        Vertex temp=new Vertex(s);
+        return edges.get(temp).getWeight();
     }
 
 
@@ -166,11 +200,10 @@ public class Vertex {
 
     public void deleteParentFromRoutes(){
         if(!this.equals(parent)){
-            Iterator<Map.Entry<VertexRoute,Double>> it=routes.entrySet().iterator();
-            while(it.hasNext()){
-                Map.Entry<VertexRoute,Double> entry=it.next();
-                if(entry.getKey().contains(parent)){
-                    it.remove();
+            for(VertexRoute i:routes){
+                if(i.getV2().equals(parent) || i.getV1().equals(parent)){
+                    routes.remove(i);
+                    break;
                 }
             }
         }

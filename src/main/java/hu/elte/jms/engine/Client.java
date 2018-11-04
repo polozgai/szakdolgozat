@@ -119,7 +119,7 @@ public class Client implements MessageListener {
             }
             value= object.get(key).toString();
             partMessageProcessing(key,value);
-            //System.out.println(key);
+            //System.out.println(value);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -133,11 +133,10 @@ public class Client implements MessageListener {
             case "SET_PARENT":  vertex.setParent(vertex.getNeighbourByName(value));
                                 vertex.deleteParentFromRoutes();
                                 break;
-            case "SEND_ROUTES": System.out.println(value);
+            case "SEND_ROUTES": //System.out.println(value);
                                 vertex.processRoutes(value);
-                                //vertex.decreaseMessagesToChildrenNumber();
+                                vertex.decreaseMessagesToChildrenNumber();
                                 //checkMessagesToChildrenNumber();
-                                //consumer.close();
                                 break;
         }
     }

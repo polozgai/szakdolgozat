@@ -7,6 +7,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class Algorithm {
 
@@ -23,9 +24,15 @@ public class Algorithm {
         this.graph=readGraph();
     }
 
-    public void computeAlgorithm(Vertex start, Vertex end){
-        setStartVertex(start);
-        setEndVertex(end);
+    public void computeAlgorithm(String start, String end){
+        for(Vertex i:graph.getVerticies()){
+            if(i.getName().equals(start)){
+                setStartVertex(i);
+            }
+            if(i.getName().equals(end)){
+                setEndVertex(i);
+            }
+        }
 
         //init();
 
@@ -50,8 +57,7 @@ public class Algorithm {
         graph.getVerticies().get(2).processRoutes(val);
         System.out.println(graph.getVerticies().get(2).getRoutes().toString());
         */
-        VertexRoute temp=new VertexRoute(start,end);
-        System.out.println(startVertex.getRoutes().get(temp));
+        System.out.println(graph.getVerticies().get(0).getRoutes().get(4).getPrevious());
 
         System.out.println("List.Messages");
 
@@ -79,24 +85,6 @@ public class Algorithm {
         }*/
     }
 
-
-    //nem kell benne van a setParentben a Clientben a feldolgozásban
-    public void setRoutes(){
-        for(Vertex v:graph.getVerticies()){
-            Vertex parent=v.getParent();
-            if(v.equals(parent)){
-                continue;
-            }
-            Iterator<Map.Entry<VertexRoute,Double>> it=v.getRoutes().entrySet().iterator();
-            while(it.hasNext()){
-                Map.Entry<VertexRoute,Double> entry=it.next();
-                if(entry.getKey().contains(parent)){
-                    it.remove();
-                }
-            }
-            //System.out.println(v.getRoutes().toString());
-        }
-    }
 
     //jo
     public void setParent(){

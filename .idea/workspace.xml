@@ -14,10 +14,10 @@
     <session id="1814419680">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="19" />
+          <entry key="project.closed" value="21" />
           <entry key="project.open.time.13" value="1" />
           <entry key="project.open.time.14" value="5" />
-          <entry key="project.open.time.15" value="2" />
+          <entry key="project.open.time.15" value="4" />
           <entry key="project.open.time.16" value="2" />
           <entry key="project.open.time.17" value="2" />
           <entry key="project.open.time.18" value="1" />
@@ -27,34 +27,34 @@
           <entry key="project.open.time.22" value="2" />
           <entry key="project.open.time.25" value="1" />
           <entry key="project.open.time.6" value="1" />
-          <entry key="project.opened" value="20" />
+          <entry key="project.opened" value="22" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="35" />
-          <entry key="java" value="20189" />
+          <entry key="java" value="23470" />
           <entry key="txt" value="227" />
           <entry key="xml" value="37" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="20189" />
+          <entry key="JAVA" value="23470" />
           <entry key="PLAIN_TEXT" value="262" />
           <entry key="XML" value="37" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="53" />
+          <entry key="java" value="57" />
           <entry key="txt" value="8" />
           <entry key="xml" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="53" />
+          <entry key="JAVA" value="57" />
           <entry key="PLAIN_TEXT" value="8" />
           <entry key="XML" value="4" />
         </counts>
@@ -66,26 +66,25 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/graph/Vertex.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2601">
-              <caret line="183" selection-start-line="183" selection-end-line="183" />
+            <state relative-caret-position="-51">
+              <caret line="135" column="18" selection-start-line="135" selection-start-column="18" selection-end-line="135" selection-end-column="18" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#676#677#0" expanded="true" />
-                <element signature="e#719#720#0" expanded="true" />
-                <element signature="e#5711#5712#0" expanded="true" />
-                <element signature="e#5753#5754#0" expanded="true" />
+                <element signature="e#1623#1624#0" expanded="true" />
+                <element signature="e#1652#1653#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/jms/producer/Producer.java">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/graph/Graph.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="123">
-              <caret line="45" column="20" selection-start-line="45" selection-start-column="20" selection-end-line="45" selection-end-column="20" />
+            <state relative-caret-position="136">
+              <caret line="8" column="38" selection-start-line="8" selection-start-column="38" selection-end-line="8" selection-end-column="38" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#1490#1491#0" expanded="true" />
+                <element signature="e#1522#1523#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -94,8 +93,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/jms/engine/Client.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="89">
-              <caret line="97" column="22" selection-start-line="97" selection-start-column="22" selection-end-line="97" selection-end-column="22" />
+            <state relative-caret-position="169">
+              <caret line="135" column="34" selection-start-line="135" selection-start-column="34" selection-end-line="135" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1915#1916#0" expanded="true" />
@@ -115,15 +114,37 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/algorithm/Algorithm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1802">
-              <caret line="123" column="5" selection-start-line="123" selection-start-column="5" selection-end-line="123" selection-end-column="5" />
+            <state relative-caret-position="54">
+              <caret line="59" column="87" selection-start-line="59" selection-start-column="87" selection-end-line="59" selection-end-column="87" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#setRoutes#0;class#Algorithm#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/graph/VertexRoute.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="39" selection-start-line="39" selection-end-line="39" />
+              <folding>
+                <element signature="e#721#722#0" expanded="true" />
+                <element signature="e#761#762#0" expanded="true" />
+                <element signature="e#839#840#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/graph/Edge.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="11" selection-start-line="11" selection-end-line="11" />
             </state>
           </provider>
         </entry>
@@ -131,8 +152,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/jms/consumer/Consumer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="149">
-              <caret line="21" column="18" lean-forward="true" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
+            <state relative-caret-position="255">
+              <caret line="21" column="18" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -164,8 +185,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="106">
-              <caret line="39" column="18" selection-start-line="39" selection-start-column="18" selection-end-line="39" selection-end-column="18" />
+            <state relative-caret-position="578">
+              <caret line="42" column="44" selection-start-line="42" selection-start-column="44" selection-end-line="42" selection-end-column="44" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -201,17 +222,18 @@
         <option value="$PROJECT_DIR$/src/main/java/hu/elte/graph/VertexState.java" />
         <option value="$PROJECT_DIR$/src/main/java/hu/elte/jms/consumer/MessageConsumer.java" />
         <option value="$PROJECT_DIR$/src/main/java/hu/elte/jms/consumer/MsgConsumer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/hu/elte/graph/VertexRoute.java" />
-        <option value="$PROJECT_DIR$/src/main/java/hu/elte/graph/Graph.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/hu/elte/jms/message/AlgorithmMessage.java" />
         <option value="$PROJECT_DIR$/src/main/resources/graph.txt" />
-        <option value="$PROJECT_DIR$/src/main/java/hu/elte/graph/Vertex.java" />
-        <option value="$PROJECT_DIR$/src/main/java/hu/elte/jms/engine/Client.java" />
         <option value="$PROJECT_DIR$/src/main/java/hu/elte/jms/consumer/Consumer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/hu/elte/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/hu/elte/jms/producer/Producer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/hu/elte/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/hu/elte/graph/Distance.java" />
+        <option value="$PROJECT_DIR$/src/main/java/hu/elte/jms/engine/Client.java" />
+        <option value="$PROJECT_DIR$/src/main/java/hu/elte/graph/VertexRoute.java" />
         <option value="$PROJECT_DIR$/src/main/java/hu/elte/algorithm/Algorithm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/hu/elte/graph/Vertex.java" />
+        <option value="$PROJECT_DIR$/src/main/java/hu/elte/graph/Graph.java" />
       </list>
     </option>
   </component>
@@ -233,6 +255,7 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -344,11 +367,10 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541248694596" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541277559557" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -449,8 +471,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4977169" visible="true" weight="0.24810892" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4977169" visible="true" weight="0.25567323" />
       <window_info id="Structure" order="1" sideWeight="0.5022831" side_tool="true" weight="0.22012103" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -461,9 +484,9 @@
       <window_info id="Capture Tool" order="8" />
       <window_info id="Job Explorer" order="9" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.119476266" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.2913257" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.61702126" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.400982" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.2831424" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.68576103" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3289689" />
@@ -501,8 +524,20 @@
         <watch expression="algorithm.clients.get(0)" language="JAVA" />
         <watch expression="threadSet.toArray()[6]" />
         <watch expression="((TcpTransport)((Thread)threadSet.toArray()[6]).target).stopped" custom="java.lang.Thread,org.apache.activemq.transport.tcp.TcpTransport" />
+        <watch expression="((TcpTransport)((Thread)threadSet.toArray()[6]).target).stopped" custom="java.lang.Thread,org.apache.activemq.transport.tcp.TcpTransport" />
+        <watch expression="((LinkedHashMap)((Vertex)this).routes).entrySet().toArray()[1]" custom="java.util.LinkedHashMap,hu.elte.graph.Vertex" />
+        <watch expression="((java.util.LinkedList)((Vertex)((ArrayList)((Graph)((Algorithm)this).graph).verticies).get(0)).routes).get(4)" custom="java.util.LinkedList,hu.elte.algorithm.Algorithm,hu.elte.graph.Graph,java.util.ArrayList,hu.elte.graph.Vertex" />
       </configuration>
     </watches-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="watch">
+      <expression>
+        <expression-string>algorithm.clients.get(0)</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
   </component>
   <component name="editorHistoryManager">
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_91/src.zip!/java/lang/Thread.java">
@@ -513,13 +548,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/jms/message/MessageQueue.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/graph/Edge.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_91/src.zip!/java/util/LinkedList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="115">
@@ -528,23 +556,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/jms/consumer/MsgConsumer.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/graph/VertexRoute.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="26" selection-start-line="23" selection-start-column="26" selection-end-line="23" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/graph/Graph.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="850">
-          <caret line="50" selection-start-line="50" selection-end-line="50" />
-          <folding>
-            <element signature="e#1522#1523#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/jms/message/AlgorithmMessage.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
@@ -562,25 +573,35 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/graph/GraphCutter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/graph/GraphCutter.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/jms/engine/Server.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/graph/SubGraph.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/graph/SubGraph.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/graph/VertexState.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/jms/producer/Producer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        <state relative-caret-position="680">
+          <caret line="45" column="20" selection-start-line="45" selection-start-column="20" selection-end-line="45" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/graph/VertexState.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/graph/Distance.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/graph/Edge.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="19" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
+        <state relative-caret-position="153">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/jms/consumer/Consumer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="21" column="18" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -601,10 +622,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/jms/consumer/Consumer.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
-          <caret line="21" column="18" lean-forward="true" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
+        <state relative-caret-position="578">
+          <caret line="42" column="44" selection-start-line="42" selection-start-column="44" selection-end-line="42" selection-end-column="44" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -613,8 +634,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/jms/engine/Client.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="89">
-          <caret line="97" column="22" selection-start-line="97" selection-start-column="22" selection-end-line="97" selection-end-column="22" />
+        <state relative-caret-position="169">
+          <caret line="135" column="34" selection-start-line="135" selection-start-column="34" selection-end-line="135" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1915#1916#0" expanded="true" />
@@ -633,47 +654,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/algorithm/Algorithm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="106">
-          <caret line="39" column="18" selection-start-line="39" selection-start-column="18" selection-end-line="39" selection-end-column="18" />
+        <state relative-caret-position="54">
+          <caret line="59" column="87" selection-start-line="59" selection-start-column="87" selection-end-line="59" selection-end-column="87" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/jms/producer/Producer.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/graph/VertexRoute.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="45" column="20" selection-start-line="45" selection-start-column="20" selection-end-line="45" selection-end-column="20" />
+        <state relative-caret-position="102">
+          <caret line="39" selection-start-line="39" selection-end-line="39" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#721#722#0" expanded="true" />
+            <element signature="e#761#762#0" expanded="true" />
+            <element signature="e#839#840#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/graph/Vertex.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2601">
-          <caret line="183" selection-start-line="183" selection-end-line="183" />
+        <state relative-caret-position="-51">
+          <caret line="135" column="18" selection-start-line="135" selection-start-column="18" selection-end-line="135" selection-end-column="18" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#676#677#0" expanded="true" />
-            <element signature="e#719#720#0" expanded="true" />
-            <element signature="e#5711#5712#0" expanded="true" />
-            <element signature="e#5753#5754#0" expanded="true" />
+            <element signature="e#1623#1624#0" expanded="true" />
+            <element signature="e#1652#1653#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/algorithm/Algorithm.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/hu/elte/graph/Graph.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1802">
-          <caret line="123" column="5" selection-start-line="123" selection-start-column="5" selection-end-line="123" selection-end-column="5" />
+        <state relative-caret-position="136">
+          <caret line="8" column="38" selection-start-line="8" selection-start-column="38" selection-end-line="8" selection-end-column="38" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#setRoutes#0;class#Algorithm#0" />
+            <element signature="e#1490#1491#0" expanded="true" />
+            <element signature="e#1522#1523#0" expanded="true" />
           </folding>
         </state>
       </provider>

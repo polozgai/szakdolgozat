@@ -6,11 +6,14 @@ public class VertexRoute {
 
     private Vertex v1;
     private Vertex v2;
-    private LinkedList<Vertex> privious=new LinkedList<>();
+    private Double distance;
+    private LinkedList<Vertex> previous;
 
-    public VertexRoute(Vertex v1, Vertex v2){
+    public VertexRoute(Vertex v1, Vertex v2, Double distance){
         this.v1=v1;
         this.v2=v2;
+        this.distance=distance;
+        this.previous=new LinkedList<>();
     }
 
 
@@ -29,8 +32,16 @@ public class VertexRoute {
         }
     }
 
-    public LinkedList<Vertex> getPrivious() {
-        return privious;
+    public void setDistance(Double distance) {
+        this.distance = distance;
+    }
+
+    public LinkedList<Vertex> getPrevious() {
+        return previous;
+    }
+
+    public Double getDistance() {
+        return distance;
     }
 
     public Vertex getV1(){
@@ -42,7 +53,7 @@ public class VertexRoute {
     }
 
     public String toString(){
-        return v1.toString()+" " + v2.toString();
+        return v1.toString()+" " + v2.toString()+" "+distance;
     }
 
     @Override
