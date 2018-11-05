@@ -37,21 +37,6 @@ public class Client implements MessageListener {
         this.messages=new LinkedList<>();
     }
 
-
-    /*@Override
-    public void run() {
-        boolean run=true;
-        while(run){
-            if(messages.size()!=0){
-                System.out.println("Halo");
-
-
-                messages.clear();
-            }
-            run=false;
-        }
-    }*/
-
     @Override
     public void onMessage(Message message) {
         TextMessage textMessage=(TextMessage) message;
@@ -70,21 +55,12 @@ public class Client implements MessageListener {
         }
     }
 
-
-    public List<String> getMessages() {
-        return messages;
-    }
-
     public Consumer getConsumer() {
         return consumer;
     }
 
     public Producer getProducer() {
         return producer;
-    }
-
-    public void setVertex(Vertex vertex){
-        this.vertex=vertex;
     }
 
     public Vertex getVertex() {

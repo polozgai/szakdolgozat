@@ -32,9 +32,7 @@ public class Producer {
     public void close(){
         try {
             connection.close();
-        } catch (JMSException e) {
-            e.printStackTrace();
-        }
+        } catch (JMSException e) { }
     }
 
     public void send(String message, String queueName){
@@ -45,7 +43,6 @@ public class Producer {
             messageProducer.send(textMessage);
             close();
         }catch (JMSException e){}
-
     }
 
 }

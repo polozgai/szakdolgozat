@@ -1,6 +1,5 @@
 package hu.elte.jms.message;
 
-import hu.elte.algorithm.Algorithm;
 import org.json.simple.JSONObject;
 
 import java.io.Serializable;

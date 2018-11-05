@@ -1,13 +1,11 @@
 package hu.elte.jms.consumer;
 
-import hu.elte.algorithm.Algorithm;
-import hu.elte.jms.engine.Client;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.*;
 
 
-public class Consumer /*implements MessageListener*/{
+public class Consumer {
 
     private Connection connection;
     private Session session;
@@ -36,23 +34,8 @@ public class Consumer /*implements MessageListener*/{
             connection.close();
             session.close();
             messageConsumer.close();
-        } catch (JMSException e) {
-
-        }
+        } catch (JMSException e) { }
     }
-
-   /* @Override
-    public void onMessage(Message message) {
-        TextMessage textMessage=(TextMessage) message;
-        try {
-            Algorithm.getMessages(textMessage.getText());
-            Client.getMessages().add(textMessage.getText());
-            System.out.println(textMessage.getText());
-        } catch (JMSException e) {
-            e.printStackTrace();
-        }
-    }*/
-
 
     public MessageConsumer getMessageConsumer() {
         return messageConsumer;

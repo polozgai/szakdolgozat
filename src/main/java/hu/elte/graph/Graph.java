@@ -8,13 +8,12 @@ public class Graph {
     private static List<Vertex> verticies;
     private List<Vertex> staticVerticies;
     private List<VertexRoute> vertexRoutes;
-    private Map<VertexRoute, Edge> edges;
+
 
 
     public Graph(){
         verticies = new ArrayList<Vertex>();
         vertexRoutes = new ArrayList<VertexRoute>();
-        edges = new HashMap<VertexRoute, Edge>();
         staticVerticies=new ArrayList<>();
     }
 
@@ -38,9 +37,6 @@ public class Graph {
         if(!vertexRoutes.contains(p1)){
            vertexRoutes.add(p1);
         }
-        if(!edges.containsValue(p1)){
-            edges.put(p1,e);
-        }
         int v1_index=verticies.indexOf(v1);
         int v2_index=verticies.indexOf(v2);
         verticies.get(v1_index).getEdges().put(v2,e);
@@ -52,11 +48,6 @@ public class Graph {
 
     public List<Vertex> getVerticies(){
         return verticies;
-    }
-
-
-    public Map<VertexRoute,Edge> getEdges(){
-        return edges;
     }
 
     public List<Vertex> getNeighbours(Vertex v){

@@ -7,7 +7,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.util.*;
-import java.util.concurrent.TimeUnit;
+
 
 public class Algorithm {
 
@@ -18,7 +18,7 @@ public class Algorithm {
     private static Map<Vertex,String> messages=new HashMap<>();
     private LinkedList<Vertex> mainQueue=new LinkedList<>();
 
-
+    private static final String input="graph.txt";
 
     public Algorithm(){
         this.graph=readGraph();
@@ -34,10 +34,8 @@ public class Algorithm {
             }
         }
 
-        //init();
 
         setParent();
-        //createQueues();
         for(Vertex v:graph.getVerticies()){
             System.out.println(v.toString()+" "+v.getParent()+" "+v.getDistance()+" "+v.getMessagesToChildrenNumber());
         }
@@ -47,18 +45,16 @@ public class Algorithm {
         }
 
         mapNeighbours();
-        /*try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+
+        for(Vertex i:graph.getVerticies()){
+            if(i.getName().equals(start)){
+                for(VertexRoute j:i.getRoutes()){
+                    if(j.getV2().getName().equals(end)){
+                        System.out.println(j.toString());
+                    }
+                }
+            }
         }
-        String val=messages.get(graph.getVerticies().get(2));
-        System.out.println("val: "+val);
-        graph.getVerticies().get(2).processRoutes(val);
-        System.out.println(graph.getVerticies().get(2).getRoutes().toString());
-        */
-        System.out.println(graph.getVerticies().get(0).getRoutes());
-        //System.out.println(graph.getVerticies().get(0).getRoutes().get(5).getPrevious());
 
         System.out.println("List.Messages");
 
@@ -79,18 +75,9 @@ public class Algorithm {
                     }
                 }
                 v.setActive(false);
-                //tempClient.getProducer().send(v.routesToMessage(),v.getParent().getName());
             }
             mainQueue.removeLast();
         }
-        /*for(Vertex v:graph.getVerticies()){
-            Client tempClient=getClient(v);
-            Vertex parent=v.getParent();
-            if(v.equals(parent)){
-                continue;
-            }
-            tempClient.getProducer().send(v.routesToMessage(),parent.getName());
-        }*/
     }
 
 
@@ -109,10 +96,6 @@ public class Algorithm {
                     tempClient.getProducer().send(i.parentToMessage(v),i.getName());
                     queue.add(i);
                     mainQueue.add(i);
-                    //i.setDistance(v.getEdges().get(i).getWeight());
-                    //i.setDistance(i.getEdges().get(v).getWeight());
-                    //i.setParent(v);
-                    //v.decreaseMessagesToChildrenNumber();
                 }
             }
             queue.removeFirst();
@@ -161,22 +144,9 @@ public class Algorithm {
 
 
 
-    private Graph readGraph(){
-        GraphReader gr=new GraphReader("graph.txt");
-        Graph g = gr.graphFromFile();
-        return g;
-    }
-
-    public void setGraph(Graph graph) {
-        this.graph = graph;
-    }
-
-    public List<Client> getClients() {
-        return clients;
-    }
-
-    public Graph getGraph() {
-        return graph;
+    private Graph readGraph() {
+        GraphReader graphReader = new GraphReader(input);
+        return graphReader.graphFromFile();
     }
 
     public void setEndVertex(Vertex endVertex) {

@@ -53,7 +53,7 @@ public class VertexRoute {
     }
 
     public String toString(){
-        return v1.toString()+" " + v2.toString()+" "+distance;
+        return v1.toString()+" " + v2.toString()+" "+distance+" "+previous.toString();
     }
 
     @Override

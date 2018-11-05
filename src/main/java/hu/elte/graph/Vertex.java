@@ -7,7 +7,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 public class Vertex {
 
@@ -80,14 +79,9 @@ public class Vertex {
         return name;
     }
 
-    public void setName(String name){
-        this.name=name;
-    }
-
     public String toString(){
         return name;
     }
-
 
     public List<Vertex> getNeighbours(){
         return neighbours;
@@ -137,7 +131,7 @@ public class Vertex {
     }
 
     public void processRoutes(String msg){
-        System.out.println("elotte: \n"+routes.toString());
+        //System.out.println("elotte: \n"+routes.toString());
         JSONParser parser=new JSONParser();
         try{
             Object object=parser.parse(msg);
@@ -168,14 +162,7 @@ public class Vertex {
                 }else{
                     VertexRoute route=new VertexRoute(this,Graph.getVertexByName(arr[1]),halfRoute+value);
                     route.getPrevious().add(neighbour);
-                    LinkedList<Vertex> temp=addRouteNeighbourPrevious(neighbour,Graph.getVertexByName(arr[1]));
-                    if(temp.size()!=0){
-                        for(Vertex i:temp){
-                            if(!route.getPrevious().contains(i)){
-                                //route.getPrevious().add(i);
-                            }
-                        }
-                    }
+
                     for (String i:array2){
                         i=i.trim();
                         if(!i.equals("")){
@@ -193,17 +180,9 @@ public class Vertex {
         }catch (Exception e){
             e.printStackTrace();
         }
-        System.out.println(routes.toString());
+        //System.out.println(routes.toString());
     }
 
-    private LinkedList<Vertex> addRouteNeighbourPrevious(Vertex name,Vertex vertex) {
-        for(VertexRoute i: routes){
-            if(i.getV2().getName().equals(name.getName())){
-                return i.getPrevious();
-            }
-        }
-        return null;
-    }
 
     private int getRouteIndexByName(String name) {
         for(int i=0;i<routes.size();i++){
@@ -252,12 +231,6 @@ public class Vertex {
         }
     }
 
-    private Double getEdgeByName(String s) {
-        Vertex temp=new Vertex(s);
-        return edges.get(temp).getWeight();
-    }
-
-
     public String distanceToMessage(Vertex v) {
         JSONObject object=new JSONObject();
         object.put("SET_DISTANCE",edges.get(v).getWeight());
@@ -286,13 +259,5 @@ public class Vertex {
         messagesToChildrenNumber--;
     }
 
-    public void deleteFromNeighbour(String producerName) {
-        for(Vertex i:neighbours){
-            if(i.getName().equals(producerName)){
-                neighbours.remove(i);
-                break;
-            }
-        }
-    }
 
 }

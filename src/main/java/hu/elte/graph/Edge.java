@@ -1,6 +1,5 @@
 package hu.elte.graph;
 
-import javax.jms.Queue;
 
 public class Edge {
 

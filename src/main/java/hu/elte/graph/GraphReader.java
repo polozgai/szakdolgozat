@@ -13,7 +13,7 @@ public class GraphReader {
     }
 
     public Graph graphFromFile(){
-        Graph g=new Graph();
+        Graph graph=new Graph();
         try{
             ClassLoader classloader = Thread.currentThread().getContextClassLoader();
             InputStream is= classloader.getResourceAsStream(fileName);
@@ -24,14 +24,13 @@ public class GraphReader {
                 Vertex v1 = new Vertex(data[0]);
                 Vertex v2 = new Vertex(data[1]);
                 Edge e = new Edge(Double.parseDouble(data[2]));
-                g.addVertex(v1,v2);
-                g.addEdge(e,v1,v2);
+                graph.addVertex(v1,v2);
+                graph.addEdge(e,v1,v2);
 
             }
-
         }catch (Exception e){
             e.printStackTrace();
         }
-        return g;
+        return graph;
     }
 }
