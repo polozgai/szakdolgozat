@@ -145,8 +145,12 @@ public class Algorithm {
 
 
     private Graph readGraph() {
-        GraphReader graphReader = new GraphReader(input);
-        return graphReader.graphFromFile();
+        try {
+            return GraphReader.graphFromFile(input);
+        } catch (Exception e) {
+            //e.printStackTrace();
+        }
+        return null;
     }
 
     public void setEndVertex(Vertex endVertex) {

@@ -6,15 +6,9 @@ import java.util.*;
 public class Graph {
 
     private static List<Vertex> verticies;
-    private List<Vertex> staticVerticies;
-    private List<VertexRoute> vertexRoutes;
-
-
 
     public Graph(){
         verticies = new ArrayList<Vertex>();
-        vertexRoutes = new ArrayList<VertexRoute>();
-        staticVerticies=new ArrayList<>();
     }
 
     public void addVertex( Vertex v1 ,Vertex v2){
@@ -34,9 +28,6 @@ public class Graph {
     public void addEdge(Edge e, Vertex v1, Vertex v2){
         VertexRoute p1=new VertexRoute(v1,v2,e.getWeight());
         VertexRoute p2=new VertexRoute(v2,v1,e.getWeight());
-        if(!vertexRoutes.contains(p1)){
-           vertexRoutes.add(p1);
-        }
         int v1_index=verticies.indexOf(v1);
         int v2_index=verticies.indexOf(v2);
         verticies.get(v1_index).getEdges().put(v2,e);
@@ -45,21 +36,6 @@ public class Graph {
         verticies.get(v1_index).getRoutes().add(p1);
         verticies.get(v2_index).getRoutes().add(p2);
     }
-
-    public List<Vertex> getVerticies(){
-        return verticies;
-    }
-
-    public List<Vertex> getNeighbours(Vertex v){
-        List<Vertex> neighbours=new ArrayList<>();
-        for(VertexRoute p : vertexRoutes){
-            if(p.contains(v)){
-                neighbours.add(p.anotherVertex(v));
-            }
-        }
-        return neighbours;
-    }
-
 
     public static Vertex getVertexByName(String name){
         for (Vertex i:verticies){
@@ -70,9 +46,9 @@ public class Graph {
         return null;
     }
 
-
-
-
+    public List<Vertex> getVerticies(){
+        return verticies;
+    }
 
 
     //ToString

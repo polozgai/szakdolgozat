@@ -16,22 +16,6 @@ public class VertexRoute {
         this.previous=new LinkedList<>();
     }
 
-
-    public boolean contains(Vertex v){
-        if(v.equals(v1) || v.equals(v2)){
-            return true;
-        }
-        return false;
-    }
-
-    public Vertex anotherVertex(Vertex v){
-        if(v.equals(v1)){
-            return v2;
-        }else{
-            return v1;
-        }
-    }
-
     public void setDistance(Double distance) {
         this.distance = distance;
     }
