@@ -105,24 +105,9 @@ public class Client implements MessageListener {
 
     private void partMessageProcessing(String key,String value){
         switch (key){
-            case "SET_DISTANCE":    vertex.setDistance(Double.parseDouble(value));
-                                    break;
-
-            case "SET_PARENT":  vertex.setParent(vertex.getNeighbourByName(value));
-                                vertex.deleteParentFromRoutes();
-                                break;
             case "SEND_ROUTES": //System.out.println(value);
                                 vertex.processRoutes(value);
-                                vertex.decreaseMessagesToChildrenNumber();
-                                //checkMessagesToChildrenNumber();
                                 break;
-        }
-    }
-
-    private void checkMessagesToChildrenNumber(){
-        if(vertex.getMessagesToChildrenNumber()==0){
-            System.out.println("Connection closed "+vertex.getName());
-            consumer.close();
         }
     }
 

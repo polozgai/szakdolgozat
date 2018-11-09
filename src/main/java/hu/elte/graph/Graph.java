@@ -14,9 +14,13 @@ public class Graph {
     public void addVertex( Vertex v1 ,Vertex v2){
         if(!verticies.contains(v1)){
             verticies.add(v1);
+        }else{
+            v1=verticies.get(verticies.indexOf(v1));
         }
         if(!verticies.contains(v2)){
             verticies.add(v2);
+        }else{
+            v2=verticies.get(verticies.indexOf(v2));
         }
         int v1_index=verticies.indexOf(v1);
         int v2_index=verticies.indexOf(v2);

@@ -35,13 +35,10 @@ public class Algorithm {
         }
 
 
-        setParent();
-        for(Vertex v:graph.getVerticies()){
-            System.out.println(v.toString()+" "+v.getParent()+" "+v.getDistance()+" "+v.getMessagesToChildrenNumber());
-        }
+        graphDiscovery();
 
         for (Vertex i:mainQueue){
-            //System.out.println(i.getName());
+            System.out.println(i.getName());
         }
 
         mapNeighbours();
@@ -56,6 +53,8 @@ public class Algorithm {
             }
         }
 
+        System.out.println(startVertex.getRoutes().toString());
+
         System.out.println("List.Messages");
 
 }
@@ -67,33 +66,29 @@ public class Algorithm {
         while(!mainQueue.isEmpty()){
             Vertex v=mainQueue.getLast();
             Client tempClient=getClient(v);
-            if(!v.equals(v.getParent())){
-                for(Vertex i:v.getNeighbours()){
-                    Vertex real=Graph.getVertexByName(i.getName());
-                    if(real.isActive()){
-                        tempClient.getProducer().send(v.routesToMessage(),i.getName());
-                    }
+            for(Vertex i:v.getNeighbours()){
+                Vertex real=Graph.getVertexByName(i.getName());
+                if(real.isActive()){
+                    tempClient.getProducer().send(v.routesToMessage(),i.getName());
                 }
-                v.setActive(false);
             }
+            v.setActive(false);
             mainQueue.removeLast();
         }
     }
 
 
-    //jo
-    public void setParent(){
+    //jo setParent-ből lett discovery
+    public void graphDiscovery(){
         LinkedList<Vertex> queue=new LinkedList<>();
         queue.add(startVertex);
         mainQueue.add(startVertex);
-        startVertex.setParent(startVertex);
+        startVertex.setDiscovered(true);
         while (!queue.isEmpty()){
             Vertex v=queue.getFirst();
             for(Vertex i: v.getNeighbours()){
-                if(i.getParent()==null && i.getNeighbours().size()!=0){
-                    Client tempClient=getClient(i);
-                    tempClient.getProducer().send(i.distanceToMessage(v),i.getName());
-                    tempClient.getProducer().send(i.parentToMessage(v),i.getName());
+                if(!i.isDiscovered() && i.getNeighbours().size()!=0){
+                    i.setDiscovered(true);
                     queue.add(i);
                     mainQueue.add(i);
                 }

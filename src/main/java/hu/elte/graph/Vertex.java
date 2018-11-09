@@ -13,10 +13,8 @@ public class Vertex {
     private String name;
     private List<Vertex> neighbours=new ArrayList<>();
     private Map<Vertex,Edge> edges=new HashMap<>();
-    private Vertex parent=null;
-    private int messagesToChildrenNumber = 0;
     private boolean active=true;
-    private double distance=0;
+    private boolean discovered=false;
 
     private LinkedList<VertexRoute> routes=new LinkedList<>();
 
@@ -25,12 +23,12 @@ public class Vertex {
         this.name=name;
     }
 
-    public void increaseMessagesToChildrenNumber() {
-         messagesToChildrenNumber++;
+    public void setDiscovered(boolean discovered) {
+        this.discovered = discovered;
     }
 
-    public int getMessagesToChildrenNumber() {
-        return messagesToChildrenNumber;
+    public boolean isDiscovered() {
+        return discovered;
     }
 
     public Vertex getRouteByName(String name){
@@ -51,28 +49,21 @@ public class Vertex {
         return null;
     }
 
+    public LinkedList<Vertex> getRoutePreviousByName(String name){
+        for(VertexRoute i: routes){
+            if(i.getV2().getName().equals(name)){
+                return i.getPrevious();
+            }
+        }
+        return null;
+    }
+
     public boolean isActive() {
         return active;
     }
 
     public void setActive(boolean active) {
         this.active = active;
-    }
-
-    public double getDistance() {
-        return distance;
-    }
-
-    public void setDistance(double distance) {
-        this.distance = distance;
-    }
-
-    public void setParent(Vertex parent) {
-        this.parent = parent;
-    }
-
-    public Vertex getParent() {
-        return parent;
     }
 
     public String getName(){
@@ -153,11 +144,12 @@ public class Vertex {
                 Vertex vertex=getRouteByName(arr[1]);
                 Vertex neighbour=Graph.getVertexByName(arr[0]);
                 Double halfRoute=getRouteWeightByName(arr[0]);
+                LinkedList<Vertex> prev=getRoutePreviousByName(arr[0]);
                 if(vertex!=null){
                     int index_of=getRouteIndexByName(vertex.getName());
                     Double previous=routes.get(index_of).getDistance();
                     if(halfRoute+value<previous){
-                        setRouteDistence(name,arr[1],neighbour,halfRoute+value,array2);
+                        setRouteDistence(name,arr[1],neighbour,halfRoute+value,array2,prev);
                     }
                 }else{
                     VertexRoute route=new VertexRoute(this,Graph.getVertexByName(arr[1]),halfRoute+value);
@@ -193,15 +185,6 @@ public class Vertex {
         return -1;
     }
 
-    public Vertex getNeighbourByName(String s) {
-        for(Vertex i:neighbours){
-            if(i.getName().equals(s)){
-                return i;
-            }
-        }
-        return  null;
-    }
-
     private void deletePrevious(String name, String s) {
         for(VertexRoute i:routes){
             if(i.getV1().getName().equals(name) && i.getV2().getName().equals(s)){
@@ -211,12 +194,13 @@ public class Vertex {
         }
     }
 
-    private void setRouteDistence(String s, String s1, Vertex vertex, Double distance, String[] array2){
+    private void setRouteDistence(String s, String s1, Vertex vertex, Double distance, String[] array2, LinkedList<Vertex> prev){
         for(VertexRoute i:routes){
             if(i.getV1().getName().equals(s) && i.getV2().getName().equals(s1)){
                 i.getPrevious().clear();
                 i.setDistance(distance);
                 i.getPrevious().add(vertex);
+                i.getPrevious().addAll(prev);
                 for(String j:array2){
                     j=j.trim();
                     if(!j.equals("")){
@@ -230,34 +214,5 @@ public class Vertex {
             }
         }
     }
-
-    public String distanceToMessage(Vertex v) {
-        JSONObject object=new JSONObject();
-        object.put("SET_DISTANCE",edges.get(v).getWeight());
-        return  object.toString();
-    }
-
-    public String parentToMessage(Vertex v) {
-        JSONObject object=new JSONObject();
-        int index_of=neighbours.indexOf(v);
-        object.put("SET_PARENT",neighbours.get(index_of).getName());
-        return  object.toString();
-    }
-
-    public void deleteParentFromRoutes(){
-        if(!this.equals(parent)){
-            for(VertexRoute i:routes){
-                if(i.getV2().equals(parent) || i.getV1().equals(parent)){
-                    routes.remove(i);
-                    break;
-                }
-            }
-        }
-    }
-
-    public void decreaseMessagesToChildrenNumber() {
-        messagesToChildrenNumber--;
-    }
-
 
 }
