@@ -1,6 +1,7 @@
 package hu.elte;
 
 import hu.elte.algorithm.Algorithm;
+import hu.elte.view.View;
 
 public class Main {
 
@@ -30,6 +31,9 @@ public class Main {
         algorithm.closeClients();
         System.out.println(algorithm.toString());
 
+
+        View v=new View();
+        v.show();
         //algorithm.getGraph().tooString();
 
 

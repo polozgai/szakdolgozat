@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Network | Label stroke</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css" rel="stylesheet" type="text/css">
+
+    <style type="text/css">
+    #mynetwork {
+      width: 1200px;
+      height: 600px;
+      border: 1px solid lightgray;
+      background:#d1d1d1;
+    }
+    p {
+      max-width:600px;
+    }
+  </style>
+
+</head>
+
+<body>
+<p>The style of the edges can be fully customized.</p>
+
+<div id="mynetwork"><div class="vis-network" tabindex="900" style="position: relative; overflow: hidden; touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); width: 100%; height: 100%;"><canvas width="600" height="600" style="position: relative; touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); width: 100%; height: 100%;"></canvas></div></div>
+
+<script type="text/javascript">
+
+    var allText='';
+
+    function readTextFile(file)
+    {
+     var rawFile = new XMLHttpRequest();
+     rawFile.open("GET", file, false);
+     rawFile.onreadystatechange = function ()
+     {
+         if(rawFile.readyState === 4)
+         {
+             if(rawFile.status === 200 || rawFile.status == 0)
+             {
+                 allText = rawFile.responseText;
+                 //console.log(allText);
+             }
+         }
+     }
+     rawFile.send(null);
+}
+        readTextFile("graph.txt");
+
+        var linesArray=allText.split("\n");
+        var itemArray=new Array();
+        for(var i=0;i<linesArray.length;i++){
+            itemArray.push(linesArray[i].split(" "));
+        }
+
+    var nodes2 = new Array();
+
+
+        for(var i=0;i<itemArray.length;i++){
+            for(var j=0;j<itemArray[i].length;j++){
+                if((j==0 || j==1) && !nodes2.includes(itemArray[i][j])){
+                    nodes2.push(itemArray[i][j]);
+                }
+            }
+        }
+
+        //console.log(nodes2);
+
+    var realNodes=new Array();
+
+    var map = new Map();
+
+    for(var i=0;i<nodes2.length;i++){
+        realNodes.push(
+        {id: i,label: nodes2[i]}
+        );
+        map.set(i,nodes2[i]);
+    }
+
+    function getId(param){
+        for(var [key, val] of map.entries()){
+            if(val.valueOf()==param.valueOf()){
+                return key;
+            }
+        }
+    }
+
+    readTextFile("route.txt");
+
+    var route=allText.split("\n");
+    route.pop();
+
+    var color=new Array();
+
+    for(var i=0;i<route.length;i++){
+        var temp=route[i].split(" ");
+        color.push(temp);
+    }
+
+    console.log(color);
+
+
+    function getColor(param1,param2){
+        //console.log(param1+" "+param2);
+        var temp=new String(param1+" "+param2);
+        for(var i=0;i<route.length;i++){
+            var r=new String(route[i].trim());
+            console.log("temp"+" "+temp.valueOf());
+            console.log("route"+" "+r.valueOf());
+            if(temp.valueOf()==r.valueOf()){
+                return 'red';
+                break;
+            }
+        }
+        return 'blue';
+    }
+
+    var realEdges=new Array();
+
+     for(var i=0;i<itemArray.length;i++){
+        realEdges.push(
+            {id: i,from: getId(itemArray[i][0]), to: getId(itemArray[i][1]), label: itemArray[i][2],
+            color:{color:getColor(itemArray[i][0],itemArray[i][1])}}
+        );
+        console.log(getColor(itemArray[i][0],itemArray[i][1]));
+    }
+
+    console.log(realEdges);
+    console.log(route);
+
+
+  // create a network
+  var container = document.getElementById('mynetwork');
+  var data = {
+    nodes: realNodes,
+    edges: realEdges
+  };
+  var options = {
+    nodes : {
+      shape: 'dot',
+      size: 10
+    }
+  };
+  var network = new vis.Network(container, data, options);
+</script>
+
+
+
+</body></html>

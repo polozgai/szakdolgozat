@@ -6,6 +6,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 
@@ -17,6 +20,7 @@ public class Algorithm {
     private Vertex endVertex;
     private static Map<Vertex,String> messages=new HashMap<>();
     private LinkedList<Vertex> mainQueue=new LinkedList<>();
+    private LinkedList<Vertex> minRoute=new LinkedList<>();
 
     private static final String input="graph.txt";
 
@@ -48,16 +52,29 @@ public class Algorithm {
                 for(VertexRoute j:i.getRoutes()){
                     if(j.getV2().getName().equals(end)){
                         System.out.println(j.toString());
+                        minRoute.addAll(j.getPrevious());
                     }
                 }
             }
         }
 
+        minRoute.addFirst(startVertex);
+        minRoute.addLast(endVertex);
+        printToFile();
         System.out.println(startVertex.getRoutes().toString());
 
         System.out.println("List.Messages");
 
 }
+
+
+    public void printToFile(){
+        try(PrintWriter printWriter=new PrintWriter("src/main/resources/route.txt","UTF-8");){
+            for(int i=0;i<minRoute.size();i++){
+                printWriter.println(minRoute.get(i).getName()+" "+minRoute.get(i+1).getName());
+            }
+        } catch (Exception e) { }
+    }
 
 
 
