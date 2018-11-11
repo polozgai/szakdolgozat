@@ -200,7 +200,7 @@ public class Vertex {
                 i.getPrevious().clear();
                 i.setDistance(distance);
                 i.getPrevious().add(vertex);
-                i.getPrevious().addAll(prev);
+                i.getPrevious().addAll(0,prev);
                 for(String j:array2){
                     j=j.trim();
                     if(!j.equals("")){

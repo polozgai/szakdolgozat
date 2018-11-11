@@ -2,13 +2,12 @@ package hu.elte.algorithm;
 
 import hu.elte.graph.*;
 import hu.elte.jms.engine.Client;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 
@@ -20,9 +19,9 @@ public class Algorithm {
     private Vertex endVertex;
     private static Map<Vertex,String> messages=new HashMap<>();
     private LinkedList<Vertex> mainQueue=new LinkedList<>();
-    private LinkedList<Vertex> minRoute=new LinkedList<>();
+    private static LinkedList<Vertex> minRoute=new LinkedList<>();
 
-    private static final String input="graph.txt";
+    private static final String input= "public/graph.txt";
 
     public Algorithm(){
         this.graph=readGraph();
@@ -60,23 +59,28 @@ public class Algorithm {
 
         minRoute.addFirst(startVertex);
         minRoute.addLast(endVertex);
-        printToFile();
+        //printToFile();
         System.out.println(startVertex.getRoutes().toString());
 
         System.out.println("List.Messages");
 
 }
 
-
-    public void printToFile(){
-        try(PrintWriter printWriter=new PrintWriter("src/main/resources/route.txt","UTF-8");){
+    public static JSONObject jsonRoute(){
+        JSONObject object=new JSONObject();
+        JSONArray array=new JSONArray();
+        try{
             for(int i=0;i<minRoute.size();i++){
-                printWriter.println(minRoute.get(i).getName()+" "+minRoute.get(i+1).getName());
+                array.add(minRoute.get(i).getName()+" "+minRoute.get(i+1).getName());
             }
-        } catch (Exception e) { }
+        }catch (Exception e){ }
+        object.put("route",array);
+        return object;
     }
 
-
+    public static JSONObject jsonGraph() {
+        return GraphReader.getObject();
+    }
 
 
     public void mapNeighbours(){

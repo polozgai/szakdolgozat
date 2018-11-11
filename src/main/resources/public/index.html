@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Network | Label stroke</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Szakdolgozat</title>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css" rel="stylesheet" type="text/css">
 
@@ -19,34 +22,29 @@
 </head>
 
 <body>
-<p>The style of the edges can be fully customized.</p>
 
 <div id="mynetwork"><div class="vis-network" tabindex="900" style="position: relative; overflow: hidden; touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); width: 100%; height: 100%;"><canvas width="600" height="600" style="position: relative; touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); width: 100%; height: 100%;"></canvas></div></div>
 
 <script type="text/javascript">
 
-    var allText='';
 
-    function readTextFile(file)
-    {
-     var rawFile = new XMLHttpRequest();
-     rawFile.open("GET", file, false);
-     rawFile.onreadystatechange = function ()
-     {
-         if(rawFile.readyState === 4)
-         {
-             if(rawFile.status === 200 || rawFile.status == 0)
-             {
-                 allText = rawFile.responseText;
-                 //console.log(allText);
-             }
-         }
-     }
-     rawFile.send(null);
+
+function Get(yourUrl){
+    var Httpreq = new XMLHttpRequest(); // a new request
+    Httpreq.open("GET",yourUrl,false);
+    Httpreq.send(null);
+    return Httpreq.responseText;
 }
-        readTextFile("graph.txt");
+    var graph=Get("http://localhost:4567/graph");
 
-        var linesArray=allText.split("\n");
+    var obj=JSON.parse(graph);
+
+
+        //readTextFile("graph.txt");
+
+
+
+        var linesArray=obj.graph;
         var itemArray=new Array();
         for(var i=0;i<linesArray.length;i++){
             itemArray.push(linesArray[i].split(" "));
@@ -84,10 +82,15 @@
         }
     }
 
-    readTextFile("route.txt");
+    //readTextFile("route.txt");
 
-    var route=allText.split("\n");
-    route.pop();
+    var getRoute=Get("http://localhost:4567/route");
+    var objRoute=JSON.parse(getRoute);
+    var route=objRoute.route;
+
+    //console.log(route);
+
+
 
     var color=new Array();
 
@@ -96,17 +99,18 @@
         color.push(temp);
     }
 
-    console.log(color);
+    //console.log(color);
 
 
     function getColor(param1,param2){
         //console.log(param1+" "+param2);
         var temp=new String(param1+" "+param2);
+        var temp2=new String(param2+" "+param1);
         for(var i=0;i<route.length;i++){
             var r=new String(route[i].trim());
-            console.log("temp"+" "+temp.valueOf());
-            console.log("route"+" "+r.valueOf());
-            if(temp.valueOf()==r.valueOf()){
+            //console.log("temp"+" "+temp.valueOf());
+            //console.log("route"+" "+r.valueOf());
+            if(temp.valueOf()==r.valueOf() || temp2.valueOf()==r.valueOf()){
                 return 'red';
                 break;
             }
@@ -121,11 +125,11 @@
             {id: i,from: getId(itemArray[i][0]), to: getId(itemArray[i][1]), label: itemArray[i][2],
             color:{color:getColor(itemArray[i][0],itemArray[i][1])}}
         );
-        console.log(getColor(itemArray[i][0],itemArray[i][1]));
+        //console.log(getColor(itemArray[i][0],itemArray[i][1]));
     }
 
-    console.log(realEdges);
-    console.log(route);
+    //console.log(realEdges);
+    //console.log(route);
 
 
   // create a network
