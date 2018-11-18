@@ -1,10 +1,12 @@
-hu\elte\jms\engine\Server.class
-hu\elte\Main.class
-hu\elte\graph\VertexPair.class
+hu\elte\view\View.class
+hu\elte\jms\message\AlgorithmMessage.class
+hu\elte\graph\VertexRoute.class
 hu\elte\graph\Edge.class
+hu\elte\jms\producer\Producer.class
+hu\elte\algorithm\Algorithm.class
 hu\elte\graph\Graph.class
 hu\elte\graph\Vertex.class
+hu\elte\Main.class
+hu\elte\jms\consumer\Consumer.class
 hu\elte\graph\GraphReader.class
 hu\elte\jms\engine\Client.class
-hu\elte\jms\message\Message.class
-hu\elte\jms\message\MessageQueue.class

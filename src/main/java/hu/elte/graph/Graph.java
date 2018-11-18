@@ -54,35 +54,4 @@ public class Graph {
         return verticies;
     }
 
-
-    //ToString
-    public void tooString(){
-        System.out.println("Verticies");
-        for(Vertex v: verticies){
-            System.out.println(v.toString());
-        }
-        System.out.println("Edges");
-        for(Vertex v:verticies){
-            System.out.println(v.toString()+": ");
-            for(Map.Entry<Vertex,Edge> entry: v.getEdges().entrySet()){
-                System.out.println(entry.getKey() + "/" + entry.getValue());
-            }
-        }
-
-        System.out.println("Routes");
-        for(Vertex v: verticies){
-            System.out.println(v.getRoutes().toString());
-        }
-        System.out.println("Neighbours");
-        Vertex v=verticies.get(1);
-        System.out.println(v.getNeighbours().size());
-        for(Vertex p: v.getNeighbours()) {
-            System.out.println(p.toString());
-        }
-        System.out.println("Queues");
-        for(Vertex k:verticies){
-
-        }
-    }
-
 }

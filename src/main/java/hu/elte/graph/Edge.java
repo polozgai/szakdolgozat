@@ -31,6 +31,6 @@ public class Edge {
     @Override
     public int hashCode() {
         long temp = Double.doubleToLongBits(weight);
-        return (int) (temp ^ (temp >>> 32));
+        return (int) (temp ^ (temp * 32));
     }
 }

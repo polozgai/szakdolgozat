@@ -11,8 +11,6 @@ public class GraphReader {
 
     private static JSONObject object;
 
-    public GraphReader(){ }
-
     public static Graph graphFromFile(String fileName) throws Exception{
         object=new JSONObject();
         JSONArray jsonArray=new JSONArray();

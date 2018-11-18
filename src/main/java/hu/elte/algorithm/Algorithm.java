@@ -7,19 +7,21 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.PrintWriter;
 import java.util.*;
 
 
 public class Algorithm {
 
-    private Graph graph;
+    private static Graph graph;
     private List<Client> clients=new ArrayList<>();
     private Vertex startVertex;
     private Vertex endVertex;
     private static Map<Vertex,String> messages=new HashMap<>();
     private LinkedList<Vertex> mainQueue=new LinkedList<>();
     private static LinkedList<Vertex> minRoute=new LinkedList<>();
+    private static JSONObject jsonGraphByNode =new JSONObject();
+    private static JSONObject jsonGraphByNodeForColorChange =new JSONObject();
+    private static JSONObject jsonMinRouteForAnimation =new JSONObject();
 
     private static final String input= "public/graph.txt";
 
@@ -64,7 +66,7 @@ public class Algorithm {
 
         System.out.println("List.Messages");
 
-}
+    }
 
     public static JSONObject jsonRoute(){
         JSONObject object=new JSONObject();
@@ -78,8 +80,26 @@ public class Algorithm {
         return object;
     }
 
+    public static JSONObject jsonGraphSize(){
+        JSONObject object=new JSONObject();
+        object.put("size", graph.getVerticies().size());
+        return  object;
+    }
+
+    public static JSONObject jsonMinRouteForAnimation(){
+        return jsonMinRouteForAnimation;
+    }
+
     public static JSONObject jsonGraph() {
         return GraphReader.getObject();
+    }
+
+    public static JSONObject jsonGraphByNode(){
+        return jsonGraphByNode;
+    }
+
+    public static JSONObject jsonGraphByNodeForColorChange(){
+        return jsonGraphByNodeForColorChange;
     }
 
 
@@ -92,9 +112,37 @@ public class Algorithm {
                 if(real.isActive()){
                     tempClient.getProducer().send(v.routesToMessage(),i.getName());
                 }
+                //animation
+                if(i.getName().equals(startVertex.getName())){
+                    LinkedList<Vertex> tempRoute=new LinkedList<>();
+                    //System.out.println(startVertex.getRoutes());
+                    for(VertexRoute j:startVertex.getRoutes()){
+                        if(j.getV2().getName().equals(endVertex.getName())){
+                            tempRoute.addAll(j.getPrevious());
+                        }
+                    }
+                    tempRoute.addFirst(startVertex);
+                    tempRoute.addLast(endVertex);
+                    JSONArray array=new JSONArray();
+                    try {
+                        for(int j=0;j<tempRoute.size();j++){
+                            array.add(tempRoute.get(j).getName()+" "+tempRoute.get(j+1).getName());
+                        }
+                    }catch (Exception e){}
+                    jsonMinRouteForAnimation.clear();
+                    jsonMinRouteForAnimation.put("route",array);
+                    System.out.println(jsonMinRouteForAnimation.toString());
+                }
             }
             v.setActive(false);
             mainQueue.removeLast();
+            jsonGraphByNodeForColorChange.put("node",v.getName());
+            try {
+                Thread.sleep(1000);
+                jsonGraphByNodeForColorChange().clear();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -104,6 +152,13 @@ public class Algorithm {
         LinkedList<Vertex> queue=new LinkedList<>();
         queue.add(startVertex);
         mainQueue.add(startVertex);
+        jsonGraphByNode.put("graph",startVertex.getName());
+        try {
+            Thread.sleep(3000);
+            jsonGraphByNode.clear();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         startVertex.setDiscovered(true);
         while (!queue.isEmpty()){
             Vertex v=queue.getFirst();
@@ -112,6 +167,13 @@ public class Algorithm {
                     i.setDiscovered(true);
                     queue.add(i);
                     mainQueue.add(i);
+                    jsonGraphByNode.put("graph",i.getName());
+                    try {
+                        Thread.sleep(1000);
+                        jsonGraphByNode.clear();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
             queue.removeFirst();

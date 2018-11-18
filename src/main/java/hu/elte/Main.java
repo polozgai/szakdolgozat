@@ -10,6 +10,9 @@ public class Main {
     public static void main(String[] args){
 
 
+        View v=new View();
+        v.show();
+
         Algorithm algorithm=new Algorithm();
         algorithm.createClients();
         algorithm.createQueues();
@@ -20,8 +23,6 @@ public class Main {
         System.out.println(algorithm.toString());
 
 
-        View v=new View();
-        v.show();
         //algorithm.getGraph().tooString();
 
 
