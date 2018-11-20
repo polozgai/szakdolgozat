@@ -13,8 +13,6 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 
 
@@ -24,8 +22,6 @@ public class Client implements MessageListener {
     private Vertex vertex;
     private Consumer consumer;
     private Producer producer;
-    private List<Client> neighbours;
-    private List<String> messages;
 
 
     public Client(int id, Vertex vertex){
@@ -33,8 +29,6 @@ public class Client implements MessageListener {
         this.vertex=vertex;
         this.consumer=new Consumer(vertex.getName());
         this.producer=new Producer(vertex.getName());
-        this.neighbours=new LinkedList<>();
-        this.messages=new LinkedList<>();
     }
 
     @Override
@@ -67,11 +61,7 @@ public class Client implements MessageListener {
         return vertex;
     }
 
-    public String toSting(){
-        return vertex.getName();
-    }
-
-    public void createQueues() {
+    public void createQueue() {
         consumer.create(vertex.getName());
         try {
             consumer.getMessageConsumer().setMessageListener(this);

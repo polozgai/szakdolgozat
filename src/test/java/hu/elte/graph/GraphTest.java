@@ -14,7 +14,7 @@ public class GraphTest {
     private Edge edge;
 
     @Before
-    public void init(){
+    public void setUp(){
         graph=new Graph();
         a=new Vertex("a");
         b=new Vertex("b");
@@ -39,7 +39,6 @@ public class GraphTest {
         assertTrue(graph.getVerticies().get(graph.getVerticies().indexOf(a)).getEdges().size()>0);
         VertexRoute route=new VertexRoute(a,b,edge.getWeight());
         assertTrue(graph.getVerticies().get(graph.getVerticies().indexOf(a)).getRoutes().getFirst().equals(route));
-        assertTrue(graph.getVerticies().get(graph.getVerticies().indexOf(b)).getRoutes().getFirst().equals(route));
         assertTrue(graph.getVerticies().get(graph.getVerticies().indexOf(a)).getEdges().get(b).getWeight()==edge.getWeight());
         assertTrue(graph.getVerticies().get(graph.getVerticies().indexOf(b)).getEdges().get(a).getWeight()==edge.getWeight());
     }

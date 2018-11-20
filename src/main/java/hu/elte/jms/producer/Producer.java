@@ -18,7 +18,7 @@ public class Producer {
         this.producerName=producerName;
     }
 
-    public void create(String queueName){
+    private void create(String queueName){
         try {
             ActiveMQConnectionFactory activeMQConnectionFactory=new ActiveMQConnectionFactory("tcp://localhost:61616");
             connection=activeMQConnectionFactory.createConnection();
@@ -29,7 +29,7 @@ public class Producer {
 
     }
 
-    public void close(){
+    private void close(){
         try {
             connection.close();
         } catch (JMSException e) { }

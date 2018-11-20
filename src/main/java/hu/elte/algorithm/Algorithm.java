@@ -22,6 +22,7 @@ public class Algorithm {
     private static JSONObject jsonGraphByNode =new JSONObject();
     private static JSONObject jsonGraphByNodeForColorChange =new JSONObject();
     private static JSONObject jsonMinRouteForAnimation =new JSONObject();
+    private Double finalDistance;
 
     private static final String input= "public/graph.txt";
 
@@ -30,6 +31,9 @@ public class Algorithm {
     }
 
     public void computeAlgorithm(String start, String end){
+        createClients();
+        createQueues();
+
         for(Vertex i:graph.getVerticies()){
             if(i.getName().equals(start)){
                 setStartVertex(i);
@@ -53,6 +57,7 @@ public class Algorithm {
                 for(VertexRoute j:i.getRoutes()){
                     if(j.getV2().getName().equals(end)){
                         System.out.println(j.toString());
+                        finalDistance=j.getDistance();
                         minRoute.addAll(j.getPrevious());
                     }
                 }
@@ -62,10 +67,10 @@ public class Algorithm {
         minRoute.addFirst(startVertex);
         minRoute.addLast(endVertex);
         //printToFile();
-        System.out.println(startVertex.getRoutes().toString());
+        System.out.println(minRoute.toString());
 
         System.out.println("List.Messages");
-
+        closeClients();
     }
 
     public static JSONObject jsonRoute(){
@@ -103,7 +108,7 @@ public class Algorithm {
     }
 
 
-    public void mapNeighbours(){
+    private void mapNeighbours(){
         while(!mainQueue.isEmpty()){
             Vertex v=mainQueue.getLast();
             Client tempClient=getClient(v);
@@ -131,7 +136,7 @@ public class Algorithm {
                     }catch (Exception e){}
                     jsonMinRouteForAnimation.clear();
                     jsonMinRouteForAnimation.put("route",array);
-                    System.out.println(jsonMinRouteForAnimation.toString());
+                    //System.out.println(jsonMinRouteForAnimation.toString());
                 }
             }
             v.setActive(false);
@@ -148,7 +153,7 @@ public class Algorithm {
 
 
     //jo setParent-ből lett discovery
-    public void graphDiscovery(){
+    private void graphDiscovery(){
         LinkedList<Vertex> queue=new LinkedList<>();
         queue.add(startVertex);
         mainQueue.add(startVertex);
@@ -206,14 +211,14 @@ public class Algorithm {
 
     }
 
-    public void createQueues(){
+    private void createQueues(){
         for (Client client : clients){
-            client.createQueues();
+            client.createQueue();
         }
     }
 
 
-    public void createClients(){
+    private void createClients(){
         for (int i = 0; i< graph.getVerticies().size(); i++){
             clients.add(new Client(i, graph.getVerticies().get(i)));
             //System.out.println(clients.get(i).toSting());
@@ -242,12 +247,17 @@ public class Algorithm {
 
     @Override
     public String toString() {
-        return startVertex.toString()+" "+endVertex.toString()+" Msg size: "+messages.size();
+        return startVertex.toString()+" "+endVertex.toString()+" Msg: "+messages.toString();
     }
 
-    public void closeClients() {
+    private void closeClients() {
         for(Client i:clients){
             i.getConsumer().close();
         }
     }
+
+    public String getMinRouteWithWeight(){
+        return minRoute.toString()+" "+finalDistance;
+    }
+
 }

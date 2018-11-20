@@ -14,16 +14,13 @@ public class Main {
         v.show();
 
         Algorithm algorithm=new Algorithm();
-        algorithm.createClients();
-        algorithm.createQueues();
-        //toString
-        //algorithm.getGraph().tooString();
+        //algorithm.createClients();
+        //algorithm.createQueues();
         algorithm.computeAlgorithm("a","g");
-        algorithm.closeClients();
+        //algorithm.closeClients();
         System.out.println(algorithm.toString());
 
 
-        //algorithm.getGraph().tooString();
 
 
     }

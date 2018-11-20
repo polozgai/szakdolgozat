@@ -11,7 +11,6 @@ public class Consumer {
     private Session session;
     public MessageConsumer messageConsumer;
     private String consumerName;
-    public MessageListener messageListener;
 
     public Consumer(String consumerName){
         this.consumerName=consumerName;
@@ -24,7 +23,6 @@ public class Consumer {
             session=connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
             Destination destination=session.createQueue(queueName);
             messageConsumer=session.createConsumer(destination);
-            //messageConsumer.setMessageListener(messageListener);
             connection.start();
         }catch (JMSException e){ }
     }
