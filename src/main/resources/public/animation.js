@@ -1,61 +1,3 @@
-/*
-var realEdges=new Array();
-var realNodes=new vis.DataSet();
-
-for(var i=0;i<7;i++){
-    realNodes.add({
-        id:i, color:'#d1d1d1'
-    });
-}
-
-    var container = document.getElementById('mynetwork');
-    var data = {
-        nodes: realNodes,
-        edges: realEdges
-    };
-     var options = {
-        nodes : {
-          shape: 'dot',
-          size: 10
-        }
-      };
-    network = new vis.Network(container, data, options);
-
-function Get(yourUrl){
-    var Httpreq = new XMLHttpRequest(); // a new request
-    Httpreq.open("GET",yourUrl,false);
-    Httpreq.send(null);
-    return Httpreq.responseText;
-}
-
-
-function Graph(){
-    var i=0;
-    var temp=new Array();
-    while(true){
-        var graph=Get("http://localhost:4567/graph");
-        var obj=JSON.parse(graph);
-        obj=obj.graph;
-        //console.log(obj);
-        if(obj==new String("end").valueOf()){
-            break;
-        }
-        if(!temp.includes(obj)){
-            temp.push(obj);
-            realNodes.update({
-                id:i, label:obj
-            });
-            //network.setData({nodes:realNodes,edges:realEdges});
-            i++;
-        }
-    }
-    //console.log(temp);
-}
-
-
-    Graph();
-
-*/
 
 
 function Get(yourUrl){
@@ -113,7 +55,7 @@ function graph(){
         var graph=JSON.parse(graphJson);
         graph=graph.graph;
 
-
+        console.log(graph);
 
         if(typeof graph !== 'undefined' && !temp.includes(graph)){
             temp.push(graph);
@@ -150,13 +92,14 @@ function graph(){
         addEdges();
 
         if(array.length==size){
+        console.log("graph_vege");
             clearInterval(id);
             //console.log(map);
             console.log(temp);
             console.log(network);
             colorChange();
         }
-    },1000);
+    },2000);
 }
 
 
@@ -224,6 +167,7 @@ function colorChange(){
 
 
         if(colorArray.length==size){
+        console.log("color_vege");
             clearInterval(id);
             console.log(array);
             console.log(realEdges);
@@ -234,8 +178,9 @@ function colorChange(){
                 }
             }
         }
-    },1000);
+    },2000);
 }
+
 
 
 

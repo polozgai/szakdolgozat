@@ -24,10 +24,64 @@
 
 <body>
 
+<form action="/animation" method="post" >
+    <button type="button" name="button" value="button" onclick="hello()">Animation</button>
+</form>
+
+<form action="/basic" method="post">
+    <button type="button" name="basic" value="basic" onclick="basicFunc()">Basic</button>
+</form>
+
+<!--
+<form action="/halo" method="get" id="form1">
+    First name: <input type="text" name="fname"><br>
+    Last name: <input type="text" name="lname"><br>
+</form>
+
+<button type="submit" form="form1" value="Submit">Submit</button>
+-->
+
+
+
 <div id="mynetwork"><div class="vis-network" tabindex="900" style="position: relative; overflow: hidden; touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); width: 100%; height: 100%;"><canvas width="600" height="600" style="position: relative; touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); width: 100%; height: 100%;"></canvas></div></div>
 
-<script src="animation.js"> </script>
+<!--<script src="animation.js"> </script>-->
 
+<script type="text/javascript">
+
+function sleep(delay) {
+    var start = new Date().getTime();
+    while (new Date().getTime() < start + delay);
+}
+
+function hello(){
+    var star=new Date();
+    sleep(1000);
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "POST", "http://localhost:4567/animation", true );
+    xmlHttp.send( "true" );
+    sleep(50);
+    var end=new Date();
+    console.log((end-star)/1000);
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "animation.js.";
+    document.getElementsByTagName("head")[0].appendChild(script);
+}
+
+function basicFunc(){
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "POST", "http://localhost:4567/animation", true );
+    xmlHttp.send( "false" );
+    sleep(500);
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "basic.js.";
+    document.getElementsByTagName("head")[0].appendChild(script);
+}
+
+
+</script>
 
 
 </body></html>

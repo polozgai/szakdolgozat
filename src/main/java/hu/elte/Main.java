@@ -13,12 +13,10 @@ public class Main {
         View v=new View();
         v.show();
 
-        Algorithm algorithm=new Algorithm();
-        //algorithm.createClients();
-        //algorithm.createQueues();
-        algorithm.computeAlgorithm("a","g");
-        //algorithm.closeClients();
-        System.out.println(algorithm.toString());
+        //Algorithm algorithm=new Algorithm();
+
+        //algorithm.computeAlgorithm("a","g");
+        //System.out.println(algorithm.toString());
 
 
 

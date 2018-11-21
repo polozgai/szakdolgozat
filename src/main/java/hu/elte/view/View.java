@@ -29,6 +29,27 @@ public class View {
         get("/graphByNodeForColorChange",(req,res)-> Algorithm.jsonGraphByNodeForColorChange());
 
         get("/routeStepByStep",(req,res) -> Algorithm.jsonMinRouteForAnimation());
+
+        post("/animation",(req,res)->{
+            System.out.println(req.body());
+            String requestBody=req.body();
+            boolean sleep=Boolean.parseBoolean(requestBody);
+            startAlgorithm(sleep);
+            return "";
+        });
+
+        post("/basic",(req,res)->{
+            System.out.println(req.body());
+            String requestBody=req.body();
+            boolean sleep=Boolean.parseBoolean(requestBody);
+            startAlgorithm(sleep);
+            return "";
+        });
+    }
+
+    private void startAlgorithm(boolean sleep){
+        Algorithm algorithm=new Algorithm();
+        algorithm.computeAlgorithm("a","g",sleep);
     }
 
 }

@@ -30,7 +30,7 @@ public class Algorithm {
         this.graph=readGraph();
     }
 
-    public void computeAlgorithm(String start, String end){
+    public void computeAlgorithm(String start, String end, boolean isSleeping){
         createClients();
         createQueues();
 
@@ -44,13 +44,13 @@ public class Algorithm {
         }
 
 
-        graphDiscovery();
+        graphDiscovery(isSleeping);
 
         for (Vertex i:mainQueue){
             System.out.println(i.getName());
         }
 
-        mapNeighbours();
+        mapNeighbours(isSleeping);
 
         for(Vertex i:graph.getVerticies()){
             if(i.getName().equals(start)){
@@ -108,7 +108,7 @@ public class Algorithm {
     }
 
 
-    private void mapNeighbours(){
+    private void mapNeighbours(boolean isSleeping){
         while(!mainQueue.isEmpty()){
             Vertex v=mainQueue.getLast();
             Client tempClient=getClient(v);
@@ -142,28 +142,19 @@ public class Algorithm {
             v.setActive(false);
             mainQueue.removeLast();
             jsonGraphByNodeForColorChange.put("node",v.getName());
-            try {
-                Thread.sleep(1000);
-                jsonGraphByNodeForColorChange().clear();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            sleep(jsonGraphByNodeForColorChange,isSleeping,2000);
         }
+        jsonMinRouteForAnimation.clear();
     }
 
 
     //jo setParent-ből lett discovery
-    private void graphDiscovery(){
+    private void graphDiscovery(boolean isSleeping){
         LinkedList<Vertex> queue=new LinkedList<>();
         queue.add(startVertex);
         mainQueue.add(startVertex);
         jsonGraphByNode.put("graph",startVertex.getName());
-        try {
-            Thread.sleep(3000);
-            jsonGraphByNode.clear();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(jsonGraphByNode,isSleeping,3000);
         startVertex.setDiscovered(true);
         while (!queue.isEmpty()){
             Vertex v=queue.getFirst();
@@ -173,12 +164,7 @@ public class Algorithm {
                     queue.add(i);
                     mainQueue.add(i);
                     jsonGraphByNode.put("graph",i.getName());
-                    try {
-                        Thread.sleep(1000);
-                        jsonGraphByNode.clear();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    sleep(jsonGraphByNode,isSleeping,2000);
                 }
             }
             queue.removeFirst();
@@ -259,5 +245,21 @@ public class Algorithm {
     public String getMinRouteWithWeight(){
         return minRoute.toString()+" "+finalDistance;
     }
+
+    private void sleep(JSONObject object, boolean isSleeping, int time){
+        if(isSleeping){
+            try {
+                System.out.println(object.toString());
+                Thread.sleep(time);
+                object.clear();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+
+
 
 }

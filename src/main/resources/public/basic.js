@@ -109,7 +109,7 @@ function Get(yourUrl){
   };
   var options = {
     nodes : {
-      shape: 'dot',
+      shape: 'circle',
       size: 10
     }
   };

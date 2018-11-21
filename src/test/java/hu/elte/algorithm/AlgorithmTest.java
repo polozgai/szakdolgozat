@@ -13,7 +13,7 @@ public class AlgorithmTest {
     @Test
     public void computeAlgorithm() {
         Algorithm algorithm=new Algorithm();
-        algorithm.computeAlgorithm("a","c");
+        algorithm.computeAlgorithm("a","c",false);
         String msg="[a, b, c] 2.0";
         assertEquals(msg,algorithm.getMinRouteWithWeight());
     }
