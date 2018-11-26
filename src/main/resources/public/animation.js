@@ -177,6 +177,7 @@ function colorChange(){
                     array.update({id:getId(colors), color:{background:'#f42525'}})
                 }
             }
+            document.getElementsByName("button")[0].disabled = false;
         }
     },2000);
 }

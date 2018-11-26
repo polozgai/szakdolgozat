@@ -1,14 +1,8 @@
-package hu.elte.jms.engine;
+package hu.elte.jms.client;
 
 import hu.elte.graph.Edge;
 import hu.elte.graph.Graph;
 import hu.elte.graph.Vertex;
-import hu.elte.graph.VertexRoute;
-import hu.elte.jms.consumer.Consumer;
-import hu.elte.jms.message.AlgorithmMessage;
-import org.apache.activemq.broker.BrokerService;
-import org.apache.activemq.broker.TransportConnector;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 

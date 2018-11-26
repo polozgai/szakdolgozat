@@ -1,7 +1,7 @@
 package hu.elte.algorithm;
 
 import hu.elte.graph.*;
-import hu.elte.jms.engine.Client;
+import hu.elte.jms.client.Client;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -22,6 +22,7 @@ public class Algorithm {
     private static JSONObject jsonGraphByNode =new JSONObject();
     private static JSONObject jsonGraphByNodeForColorChange =new JSONObject();
     private static JSONObject jsonMinRouteForAnimation =new JSONObject();
+    private static JSONObject allNodes=new JSONObject();
     private Double finalDistance;
 
     private static final String input= "public/graph.txt";
@@ -33,7 +34,7 @@ public class Algorithm {
     public void computeAlgorithm(String start, String end, boolean isSleeping){
         createClients();
         createQueues();
-
+        minRoute.clear();
         for(Vertex i:graph.getVerticies()){
             if(i.getName().equals(start)){
                 setStartVertex(i);
@@ -71,6 +72,15 @@ public class Algorithm {
 
         System.out.println("List.Messages");
         closeClients();
+    }
+
+    public static JSONObject allNodes(){
+        JSONArray array=new JSONArray();
+        for (Vertex i:graph.getVerticies()){
+            array.add(i.getName());
+        }
+        allNodes.put("allNodes",array);
+        return  allNodes;
     }
 
     public static JSONObject jsonRoute(){

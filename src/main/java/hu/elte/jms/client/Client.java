@@ -1,4 +1,4 @@
-package hu.elte.jms.engine;
+package hu.elte.jms.client;
 
 
 import hu.elte.algorithm.Algorithm;
@@ -32,7 +32,7 @@ public class Client implements MessageListener {
     }
 
     @Override
-    public void onMessage(Message message) {
+    public synchronized void onMessage(Message message) {
         TextMessage textMessage=(TextMessage) message;
         try {
             String text=textMessage.getText();

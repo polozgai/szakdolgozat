@@ -10,9 +10,10 @@ import static spark.Spark.staticFiles;
 
 public class View {
 
+    private String start;
+    private String end;
 
-    public View(){
-    }
+    public View(){ }
 
     public void show() {
         staticFiles.location("/public");
@@ -30,8 +31,12 @@ public class View {
 
         get("/routeStepByStep",(req,res) -> Algorithm.jsonMinRouteForAnimation());
 
+        get("/allNodes",(req,res) ->{
+            Algorithm algorithm=new Algorithm();
+            return Algorithm.allNodes();
+        });
+
         post("/animation",(req,res)->{
-            System.out.println(req.body());
             String requestBody=req.body();
             boolean sleep=Boolean.parseBoolean(requestBody);
             startAlgorithm(sleep);
@@ -39,17 +44,35 @@ public class View {
         });
 
         post("/basic",(req,res)->{
-            System.out.println(req.body());
             String requestBody=req.body();
             boolean sleep=Boolean.parseBoolean(requestBody);
             startAlgorithm(sleep);
             return "";
         });
+
+        post("/start",(req,res)->{
+            String requestBody=req.body();
+            String[] array=requestBody.split("&");
+            String[] start=array[0].split("=");
+            String[] end=array[1].split("=");
+            setStart(start[1]);
+            setEnd(end[1]);
+            return "";
+        });
+
     }
 
     private void startAlgorithm(boolean sleep){
         Algorithm algorithm=new Algorithm();
-        algorithm.computeAlgorithm("a","g",sleep);
+        System.out.println(start+" "+end);
+        algorithm.computeAlgorithm(start,end,sleep);
     }
 
+    public void setStart(String start) {
+        this.start = start;
+    }
+
+    public void setEnd(String end) {
+        this.end = end;
+    }
 }

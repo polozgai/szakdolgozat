@@ -86,13 +86,6 @@
         </dependency>
 
 
-        <!-- https://mvnrepository.com/artifact/org.webjars/visjs -->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>visjs</artifactId>
-            <version>4.21.0</version>
-        </dependency>
-
 
     </dependencies>
 

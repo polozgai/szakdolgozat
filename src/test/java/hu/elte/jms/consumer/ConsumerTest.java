@@ -1,20 +1,11 @@
 package hu.elte.jms.consumer;
 
-import hu.elte.graph.Vertex;
-import hu.elte.jms.engine.Client;
 import hu.elte.jms.message.AlgorithmMessage;
 import hu.elte.jms.producer.Producer;
-import org.apache.activemq.ActiveMQConnection;
-import org.apache.activemq.ActiveMQConnectionFactory;
-import org.apache.activemq.ActiveMQMessageConsumer;
-import org.apache.activemq.advisory.DestinationSource;
-import org.apache.activemq.command.ActiveMQQueue;
 import org.junit.Before;
 import org.junit.Test;
 
 import javax.jms.*;
-
-import java.util.Set;
 
 import static org.junit.Assert.*;
 
