@@ -1,4 +1,4 @@
-package hu.elte.view;
+package hu.elte.server;
 
 import hu.elte.algorithm.Algorithm;
 import spark.Spark;
@@ -8,12 +8,12 @@ import static spark.Spark.get;
 import static spark.Spark.post;
 import static spark.Spark.staticFiles;
 
-public class View {
+public class Server {
 
     private String start;
     private String end;
 
-    public View(){ }
+    public Server(){ }
 
     public void show() {
         staticFiles.location("/public");

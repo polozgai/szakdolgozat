@@ -1,7 +1,6 @@
 package hu.elte;
 
-import hu.elte.algorithm.Algorithm;
-import hu.elte.view.View;
+import hu.elte.server.Server;
 
 public class Main {
 
@@ -10,7 +9,7 @@ public class Main {
     public static void main(String[] args){
 
 
-        View v=new View();
+        Server v=new Server();
         v.show();
 
         //Algorithm algorithm=new Algorithm();
