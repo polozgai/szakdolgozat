@@ -50,8 +50,8 @@
                         <configuration>
                             <tasks>
                                 <mkdir dir="${project.build.directory}" />
-                                <copy file="${basedir}/src/main/resources/public/graph.txt"
-                                      tofile="${project.build.directory}/App/public/graph.txt" />
+                                <copy file="${basedir}/input/graph.txt"
+                                      tofile="${project.build.directory}/App/input/graph.txt" />
                             </tasks>
                         </configuration>
                     </execution>

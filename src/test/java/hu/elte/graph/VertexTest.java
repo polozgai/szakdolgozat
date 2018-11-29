@@ -38,8 +38,8 @@ public class VertexTest {
 
     @Test
     public void getRouteByName() {
-        assertEquals(ab.getV2(),a.getRouteByName("b"));
-        assertEquals(ac.getV2(),a.getRouteByName("c"));
+        assertEquals(ab.getEndVertex(),a.getRouteByName("b"));
+        assertEquals(ac.getEndVertex(),a.getRouteByName("c"));
         assertNull(a.getRouteByName(""));
     }
 

@@ -4,6 +4,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Scanner;
 
@@ -11,14 +13,16 @@ public class GraphReader {
 
     private static JSONObject object;
 
-    public static Graph graphFromFile(String fileName) throws Exception{
+    public static Graph graphFromFile(String fileName){
         object=new JSONObject();
         JSONArray jsonArray=new JSONArray();
         Graph graph=new Graph();
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         InputStream is= classloader.getResourceAsStream(fileName);
-        if(is==null){
-            throw new NullPointerException();
+        try {
+            is=new FileInputStream(fileName);
+        } catch (FileNotFoundException e) {
+            System.out.println("GraphReader.java: Hiba! Nem lehet elérni a grapht.txt-t");
         }
         Scanner sc=new Scanner(is);
         while(sc.hasNextLine()){

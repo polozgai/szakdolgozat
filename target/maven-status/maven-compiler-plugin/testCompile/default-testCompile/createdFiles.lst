@@ -1,0 +1,10 @@
+hu\elte\graph\VertexTest.class
+hu\elte\graph\GraphReaderTest.class
+hu\elte\jms\client\ClientTest.class
+hu\elte\jms\consumer\ConsumerTest.class
+hu\elte\jms\consumer\ConsumerTest$1.class
+hu\elte\jms\message\AlgorithmMessageTest.class
+hu\elte\algorithm\AlgorithmTest.class
+hu\elte\jms\producer\ProducerTest.class
+hu\elte\graph\GraphTest.class
+hu\elte\jms\producer\ProducerTest$1.class

@@ -34,8 +34,8 @@ public class Graph {
         VertexRoute p2=new VertexRoute(v2,v1,e.getWeight());
         int v1_index=verticies.indexOf(v1);
         int v2_index=verticies.indexOf(v2);
-        verticies.get(v1_index).getEdges().put(v2,e);
-        verticies.get(v2_index).getEdges().put(v1,e);
+        //verticies.get(v1_index).getEdges().put(v2,e);
+        //verticies.get(v2_index).getEdges().put(v1,e);
         //routes adding
         verticies.get(v1_index).getRoutes().add(p1);
         verticies.get(v2_index).getRoutes().add(p2);

@@ -12,29 +12,25 @@ public class Vertex {
 
     private String name;
     private List<Vertex> neighbours=new ArrayList<>();
-    private Map<Vertex,Edge> edges=new HashMap<>();
-    private boolean active=true;
-    private boolean discovered=false;
-
+    private boolean active = false;
     private LinkedList<VertexRoute> routes=new LinkedList<>();
-
 
     public Vertex(String name){
         this.name=name;
     }
 
-    public void setDiscovered(boolean discovered) {
-        this.discovered = discovered;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
-    public boolean isDiscovered() {
-        return discovered;
+    public boolean isActive() {
+        return active;
     }
 
     public Vertex getRouteByName(String name){
         for (VertexRoute i:routes){
-            if(i.getV2().getName().equals(name)){
-                return i.getV2();
+            if(i.getEndVertex().getName().equals(name)){
+                return i.getEndVertex();
             }
         }
         return null;
@@ -42,7 +38,7 @@ public class Vertex {
 
     public Double getRouteWeightByName(String name){
         for(VertexRoute i:routes){
-            if(i.getV2().getName().equals(name)){
+            if(i.getEndVertex().getName().equals(name)){
                 return i.getDistance();
             }
         }
@@ -51,19 +47,11 @@ public class Vertex {
 
     public LinkedList<Vertex> getRoutePreviousByName(String name){
         for(VertexRoute i: routes){
-            if(i.getV2().getName().equals(name)){
+            if(i.getEndVertex().getName().equals(name)){
                 return i.getPrevious();
             }
         }
         return null;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
     }
 
     public String getName(){
@@ -76,10 +64,6 @@ public class Vertex {
 
     public List<Vertex> getNeighbours(){
         return neighbours;
-    }
-
-    public Map<Vertex, Edge> getEdges(){
-        return edges;
     }
 
     public LinkedList<VertexRoute> getRoutes() {
@@ -105,15 +89,10 @@ public class Vertex {
     public String routesToMessage(){
         JSONObject object=new JSONObject();
         JSONArray list=new JSONArray();
-        JSONArray prev=new JSONArray();
         for(VertexRoute i:routes){
             JSONObject obj=new JSONObject();
-            obj.put("key",i.getV1()+" "+i.getV2());
+            obj.put("key",i.getStartVertex()+" "+i.getEndVertex());
             obj.put("value",i.getDistance());
-            /*for(Vertex j:i.getPrevious()){
-                prev.add(j.getName());
-            }*/
-            prev.add(i.getPrevious().toString());
             obj.put("previous",i.getPrevious().toString());
             list.add(obj);
         }
@@ -178,7 +157,7 @@ public class Vertex {
 
     private int getRouteIndexByName(String name) {
         for(int i=0;i<routes.size();i++){
-            if(routes.get(i).getV2().getName().equals(name)){
+            if(routes.get(i).getEndVertex().getName().equals(name)){
                 return i;
             }
         }
@@ -187,7 +166,7 @@ public class Vertex {
 
     private void deletePrevious(String name, String s) {
         for(VertexRoute i:routes){
-            if(i.getV1().getName().equals(name) && i.getV2().getName().equals(s)){
+            if(i.getStartVertex().getName().equals(name) && i.getEndVertex().getName().equals(s)){
                 routes.remove(i);
                 break;
             }
@@ -196,7 +175,7 @@ public class Vertex {
 
     private void setRouteDistence(String s, String s1, Vertex vertex, Double distance, String[] array2, LinkedList<Vertex> prev){
         for(VertexRoute i:routes){
-            if(i.getV1().getName().equals(s) && i.getV2().getName().equals(s1)){
+            if(i.getStartVertex().getName().equals(s) && i.getEndVertex().getName().equals(s1)){
                 i.getPrevious().clear();
                 i.setDistance(distance);
                 i.getPrevious().add(vertex);

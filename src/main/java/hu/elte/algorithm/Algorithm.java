@@ -25,7 +25,7 @@ public class Algorithm {
     private static JSONObject allNodes=new JSONObject();
     private Double finalDistance;
 
-    private static final String input= "public/graph.txt";
+    private static final String input= "input/graph.txt";
 
     public Algorithm(){
         this.graph=readGraph();
@@ -56,7 +56,7 @@ public class Algorithm {
         for(Vertex i:graph.getVerticies()){
             if(i.getName().equals(start)){
                 for(VertexRoute j:i.getRoutes()){
-                    if(j.getV2().getName().equals(end)){
+                    if(j.getEndVertex().getName().equals(end)){
                         System.out.println(j.toString());
                         finalDistance=j.getDistance();
                         minRoute.addAll(j.getPrevious());
@@ -132,7 +132,7 @@ public class Algorithm {
                     LinkedList<Vertex> tempRoute=new LinkedList<>();
                     //System.out.println(startVertex.getRoutes());
                     for(VertexRoute j:startVertex.getRoutes()){
-                        if(j.getV2().getName().equals(endVertex.getName())){
+                        if(j.getEndVertex().getName().equals(endVertex.getName())){
                             tempRoute.addAll(j.getPrevious());
                         }
                     }
@@ -165,12 +165,12 @@ public class Algorithm {
         mainQueue.add(startVertex);
         jsonGraphByNode.put("graph",startVertex.getName());
         sleep(jsonGraphByNode,isSleeping,3000);
-        startVertex.setDiscovered(true);
+        startVertex.setActive(true);
         while (!queue.isEmpty()){
             Vertex v=queue.getFirst();
             for(Vertex i: v.getNeighbours()){
-                if(!i.isDiscovered() && i.getNeighbours().size()!=0){
-                    i.setDiscovered(true);
+                if(!i.isActive() && i.getNeighbours().size()!=0){
+                    i.setActive(true);
                     queue.add(i);
                     mainQueue.add(i);
                     jsonGraphByNode.put("graph",i.getName());

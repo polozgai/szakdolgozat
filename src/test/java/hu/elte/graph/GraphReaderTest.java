@@ -8,7 +8,7 @@ public class GraphReaderTest {
 
     @Test
     public void graphFromFileNotNull() throws Exception {
-        assertNotNull(GraphReader.graphFromFile("public/graph.txt"));
+        assertNotNull(GraphReader.graphFromFile("input/graph.txt"));
     }
 
     @Test (expected = Exception.class)

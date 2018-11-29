@@ -1,0 +1,12 @@
+hu\elte\jms\client\Client.class
+hu\elte\jms\message\AlgorithmMessage.class
+hu\elte\graph\VertexRoute.class
+hu\elte\graph\Edge.class
+hu\elte\server\Server.class
+hu\elte\jms\producer\Producer.class
+hu\elte\algorithm\Algorithm.class
+hu\elte\graph\Graph.class
+hu\elte\graph\Vertex.class
+hu\elte\Main.class
+hu\elte\jms\consumer\Consumer.class
+hu\elte\graph\GraphReader.class
