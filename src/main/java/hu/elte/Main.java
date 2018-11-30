@@ -6,8 +6,8 @@ public class Main {
 
     public static void main(String[] args){
 
-        Server v=new Server();
-        v.show();
+        Server server=new Server();
+        server.show();
 
     }
 }

@@ -35,7 +35,7 @@ public class Algorithm {
         createClients();
         createQueues();
         minRoute.clear();
-        for(Vertex i:graph.getVerticies()){
+        for(Vertex i:graph.getVertices()){
             if(i.getName().equals(start)){
                 setStartVertex(i);
             }
@@ -53,7 +53,7 @@ public class Algorithm {
 
         mapNeighbours(isSleeping);
 
-        for(Vertex i:graph.getVerticies()){
+        for(Vertex i:graph.getVertices()){
             if(i.getName().equals(start)){
                 for(VertexRoute j:i.getRoutes()){
                     if(j.getEndVertex().getName().equals(end)){
@@ -70,13 +70,13 @@ public class Algorithm {
         //printToFile();
         System.out.println(minRoute.toString());
 
-        System.out.println("List.Messages");
+        System.out.println(startVertex.getRoutes().toString());
         closeClients();
     }
 
     public static JSONObject allNodes(){
         JSONArray array=new JSONArray();
-        for (Vertex i:graph.getVerticies()){
+        for (Vertex i:graph.getVertices()){
             array.add(i.getName());
         }
         allNodes.put("allNodes",array);
@@ -97,16 +97,12 @@ public class Algorithm {
 
     public static JSONObject jsonGraphSize(){
         JSONObject object=new JSONObject();
-        object.put("size", graph.getVerticies().size());
+        object.put("size", graph.getVertices().size());
         return  object;
     }
 
     public static JSONObject jsonMinRouteForAnimation(){
         return jsonMinRouteForAnimation;
-    }
-
-    public static JSONObject jsonGraph() {
-        return GraphReader.getObject();
     }
 
     public static JSONObject jsonGraphByNode(){
@@ -215,8 +211,8 @@ public class Algorithm {
 
 
     private void createClients(){
-        for (int i = 0; i< graph.getVerticies().size(); i++){
-            clients.add(new Client(i, graph.getVerticies().get(i)));
+        for (int i = 0; i< graph.getVertices().size(); i++){
+            clients.add(new Client(i, graph.getVertices().get(i)));
             //System.out.println(clients.get(i).toSting());
         }
     }

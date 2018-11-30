@@ -1,6 +1,7 @@
 package hu.elte.server;
 
 import hu.elte.algorithm.Algorithm;
+import hu.elte.graph.GraphReader;
 import spark.Spark;
 import spark.utils.IOUtils;
 
@@ -21,7 +22,7 @@ public class Server {
 
         get("/route", (req,res) -> Algorithm.jsonRoute());
 
-        get("/graph",(req,res) -> Algorithm.jsonGraph());
+        get("/graph",(req,res) -> GraphReader.getObject());
 
         get("/size", (req,res)-> Algorithm.jsonGraphSize());
 

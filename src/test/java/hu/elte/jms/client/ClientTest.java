@@ -16,10 +16,10 @@ public class ClientTest {
     private Vertex b;
     private Vertex c;
     private Graph graph;
-    private Client client_a;
-    private Client client_b;
-    private Edge a_b;
-    private Edge a_c;
+    private Client clientA;
+    private Client clientB;
+    private Edge aToB;
+    private Edge aToC;
 
     @Before
     public void setUp() throws Exception {
@@ -27,31 +27,29 @@ public class ClientTest {
         a=new Vertex("a");
         b=new Vertex("b");
         c=new Vertex("c");
-        a_b=new Edge(1.0);
-        a_c=new Edge(2.0);
-        client_a=new Client(0,a);
-        client_b=new Client(1,b);
-        graph.addVertex(a,b);
-        graph.addVertex(c,b);
-        graph.addEdge(a_b,a,b);
-        graph.addEdge(a_c,a,c);
+        aToB =new Edge(1.0);
+        aToC =new Edge(2.0);
+        clientA =new Client(0,a);
+        clientB =new Client(1,b);
+        graph.addEdge(aToB,a,b);
+        graph.addEdge(aToC,a,c);
     }
 
 
     @Test
     public void onMessage() {
         String msg="[b a 1.0 [], b c 3.0 [a]]";
-        client_b.createQueue();
-        client_a.getProducer().send(a.routesToMessage(),b.getName());
-        client_b.getConsumer().close();
+        clientB.createQueue();
+        clientA.getProducer().send(a.routesToMessage(),b.getName());
+        clientB.getConsumer().close();
         assertEquals(msg,b.getRoutes().toString());
     }
 
     @Test
     public void createQueue() {
-        client_a.createQueue();
+        clientA.createQueue();
         try {
-            assertNotNull(client_a.getConsumer().getMessageConsumer().getMessageListener());
+            assertNotNull(clientA.getConsumer().getMessageConsumer().getMessageListener());
         } catch (JMSException e) {
             e.printStackTrace();
         }
@@ -60,7 +58,7 @@ public class ClientTest {
     @Test (expected = NullPointerException.class)
     public void createQueueException(){
         try {
-            client_a.getConsumer().getMessageConsumer().getMessageListener();
+            clientA.getConsumer().getMessageConsumer().getMessageListener();
         } catch (JMSException e) {
             e.printStackTrace();
         }

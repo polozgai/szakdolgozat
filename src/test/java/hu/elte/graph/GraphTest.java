@@ -22,27 +22,19 @@ public class GraphTest {
         edge=new Edge(1);
     }
 
-    @Test
-    public void addVertex() {
-        graph.addVertex(a,b);
-        assertTrue(graph.getVerticies().size()==2);
-        graph.addVertex(a,c);
-        assertTrue(graph.getVerticies().size()==3);
-    }
 
     @Test
     public void addEdge() {
-        graph.addVertex(a,b);
         graph.addEdge(edge,a,b);
-        assertTrue(graph.getVerticies().get(graph.getVerticies().indexOf(a)).getRoutes().size()>0);
-        assertTrue(graph.getVerticies().get(graph.getVerticies().indexOf(b)).getRoutes().size()>0);
+        assertTrue(graph.getVertices().get(graph.getVertices().indexOf(a)).getRoutes().size()>0);
+        assertTrue(graph.getVertices().get(graph.getVertices().indexOf(b)).getRoutes().size()>0);
         VertexRoute route=new VertexRoute(a,b,edge.getWeight());
-        assertTrue(graph.getVerticies().get(graph.getVerticies().indexOf(a)).getRoutes().getFirst().equals(route));
+        assertTrue(graph.getVertices().get(graph.getVertices().indexOf(a)).getRoutes().getFirst().equals(route));
     }
 
     @Test
     public void getVertexByName() {
-        graph.addVertex(a,b);
+        graph.addEdge(edge,a,b);
         Vertex v=Graph.getVertexByName("a");
         assertNotNull(v);
         Vertex v1=Graph.getVertexByName("");

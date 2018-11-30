@@ -25,8 +25,6 @@ public class VertexTest {
         b=new Vertex("b");
         c=new Vertex("c");
         d=new Vertex("d");
-        graph.addVertex(a,b);
-        graph.addVertex(c,d);
         ab=new VertexRoute(a,b,1.0);
         ac=new VertexRoute(a,c,2.0);
         bd=new VertexRoute(b,d,0.0);

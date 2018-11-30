@@ -101,40 +101,37 @@ public class Vertex {
     }
 
     public void processRoutes(String msg){
-        //System.out.println("elotte: \n"+routes.toString());
         JSONParser parser=new JSONParser();
         try{
             Object object=parser.parse(msg);
             JSONArray array=(JSONArray) object;
-            //System.out.println("array: "+array.toString());
             Iterator<JSONObject> it=array.iterator();
             while(it.hasNext()){
-                JSONObject innnerObject=it.next();
-                Double value=(Double) innnerObject.get("value");
-                String key=(String) innnerObject.get("key");
-                String[] arr=key.split(" ");
-                if(arr[1].equals(name)){
+                JSONObject innerObject=it.next();
+                Double value=(Double) innerObject.get("value");
+                String key=(String) innerObject.get("key");
+                String[] keys=key.split(" ");
+                if(keys[1].equals(name)){
                     continue;
                 }
-                String array1= (String) innnerObject.get("previous");
-                array1=array1.substring(1,array1.length()-1);
-                String[] array2=array1.split(",");
-                //System.out.println(name+" - "+array1.toString());
-                Vertex vertex=getRouteByName(arr[1]);
-                Vertex neighbour=Graph.getVertexByName(arr[0]);
-                Double halfRoute=getRouteWeightByName(arr[0]);
-                LinkedList<Vertex> prev=getRoutePreviousByName(arr[0]);
-                if(vertex!=null){
-                    int index_of=getRouteIndexByName(vertex.getName());
-                    Double previous=routes.get(index_of).getDistance();
-                    if(halfRoute+value<previous){
-                        setRouteDistence(name,arr[1],neighbour,halfRoute+value,array2,prev);
+                String previousString= (String) innerObject.get("previous");
+                previousString=previousString.substring(1,previousString.length()-1);
+                String[] previousStringByComma=previousString.split(",");
+                Vertex receivedVertex=getRouteByName(keys[1]);
+                Vertex neighbour=Graph.getVertexByName(keys[0]);
+                Double neighbourDistance=getRouteWeightByName(keys[0]);
+                LinkedList<Vertex> previousList=getRoutePreviousByName(keys[0]);
+                if(receivedVertex!=null){
+                    int indexOf=getRouteIndexByName(receivedVertex.getName());
+                    Double previous=routes.get(indexOf).getDistance();
+                    if(neighbourDistance+value<previous){
+                        setRouteDistance(indexOf,neighbour,neighbourDistance+value,previousStringByComma, previousList);
                     }
                 }else{
-                    VertexRoute route=new VertexRoute(this,Graph.getVertexByName(arr[1]),halfRoute+value);
+                    VertexRoute route=new VertexRoute(this,Graph.getVertexByName(keys[1]),neighbourDistance+value);
                     route.getPrevious().add(neighbour);
 
-                    for (String i:array2){
+                    for (String i:previousStringByComma){
                         i=i.trim();
                         if(!i.equals("")){
                             Vertex v=Graph.getVertexByName(i);
@@ -143,7 +140,7 @@ public class Vertex {
                             }
                         }
                     }
-                    deletePrevious(name,arr[1]);
+
                     routes.add(route);
 
                 }
@@ -151,7 +148,6 @@ public class Vertex {
         }catch (Exception e){
             e.printStackTrace();
         }
-        //System.out.println(routes.toString());
     }
 
 
@@ -164,32 +160,19 @@ public class Vertex {
         return -1;
     }
 
-    private void deletePrevious(String name, String s) {
-        for(VertexRoute i:routes){
-            if(i.getStartVertex().getName().equals(name) && i.getEndVertex().getName().equals(s)){
-                routes.remove(i);
-                break;
-            }
-        }
-    }
-
-    private void setRouteDistence(String s, String s1, Vertex vertex, Double distance, String[] array2, LinkedList<Vertex> prev){
-        for(VertexRoute i:routes){
-            if(i.getStartVertex().getName().equals(s) && i.getEndVertex().getName().equals(s1)){
-                i.getPrevious().clear();
-                i.setDistance(distance);
-                i.getPrevious().add(vertex);
-                i.getPrevious().addAll(0,prev);
-                for(String j:array2){
-                    j=j.trim();
-                    if(!j.equals("")){
-                        Vertex v=Graph.getVertexByName(j);
-                        if(!i.getPrevious().contains(v)){
-                            i.getPrevious().add(v);
-                        }
-                    }
+    private void setRouteDistance(int indexOf, Vertex neighbour, Double distance, String[] previousVertexArray, LinkedList<Vertex> previousList){
+        VertexRoute route=routes.get(indexOf);
+        route.setDistance(distance);
+        route.getPrevious().clear();
+        route.getPrevious().add(neighbour);
+        route.getPrevious().addAll(0,previousList);
+        for(String j:previousVertexArray){
+            j=j.trim();
+            if(!j.equals("")){
+                Vertex v=Graph.getVertexByName(j);
+                if(!route.getPrevious().contains(v)){
+                    route.getPrevious().add(v);
                 }
-                break;
             }
         }
     }
