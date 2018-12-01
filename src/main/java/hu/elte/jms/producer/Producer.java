@@ -32,6 +32,8 @@ public class Producer {
     private void close(){
         try {
             connection.close();
+            messageProducer.close();
+            session.close();
         } catch (JMSException e) { }
     }
 

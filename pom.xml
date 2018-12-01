@@ -52,6 +52,8 @@
                                 <mkdir dir="${project.build.directory}" />
                                 <copy file="${basedir}/input/graph.txt"
                                       tofile="${project.build.directory}/App/input/graph.txt" />
+                                <copy file="${basedir}/output/messages.txt"
+                                      tofile="${project.build.directory}/App/output/messages.txt" />
                             </tasks>
                         </configuration>
                     </execution>

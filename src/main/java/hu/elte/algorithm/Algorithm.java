@@ -1,13 +1,18 @@
 package hu.elte.algorithm;
 
-import hu.elte.graph.*;
+import hu.elte.graph.Graph;
+import hu.elte.graph.GraphReader;
+import hu.elte.graph.Vertex;
+import hu.elte.graph.VertexRoute;
 import hu.elte.jms.client.Client;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
-import java.util.*;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 
 public class Algorithm {
@@ -16,7 +21,7 @@ public class Algorithm {
     private List<Client> clients=new ArrayList<>();
     private Vertex startVertex;
     private Vertex endVertex;
-    private static Map<Vertex,String> messages=new HashMap<>();
+    private static List<String> messages=new LinkedList<>();
     private LinkedList<Vertex> mainQueue=new LinkedList<>();
     private static LinkedList<Vertex> minRoute=new LinkedList<>();
     private static JSONObject jsonGraphByNode =new JSONObject();
@@ -44,34 +49,25 @@ public class Algorithm {
             }
         }
 
-
         graphDiscovery(isSleeping);
-
-        for (Vertex i:mainQueue){
-            System.out.println(i.getName());
-        }
 
         mapNeighbours(isSleeping);
 
-        for(Vertex i:graph.getVertices()){
-            if(i.getName().equals(start)){
-                for(VertexRoute j:i.getRoutes()){
-                    if(j.getEndVertex().getName().equals(end)){
-                        System.out.println(j.toString());
-                        finalDistance=j.getDistance();
-                        minRoute.addAll(j.getPrevious());
-                    }
-                }
+        for(VertexRoute i:startVertex.getRoutes()){
+            if(i.getEndVertex().equals(endVertex)){
+                finalDistance=i.getDistance();
+                minRoute.addAll(i.getPrevious());
             }
         }
 
         minRoute.addFirst(startVertex);
         minRoute.addLast(endVertex);
-        //printToFile();
-        System.out.println(minRoute.toString());
 
-        System.out.println(startVertex.getRoutes().toString());
+        System.out.println(finalDistance);
+
         closeClients();
+
+        writeAllMessagesToFile();
     }
 
     public static JSONObject allNodes(){
@@ -113,7 +109,6 @@ public class Algorithm {
         return jsonGraphByNodeForColorChange;
     }
 
-
     private void mapNeighbours(boolean isSleeping){
         while(!mainQueue.isEmpty()){
             Vertex v=mainQueue.getLast();
@@ -123,10 +118,8 @@ public class Algorithm {
                 if(real.isActive()){
                     tempClient.getProducer().send(v.routesToMessage(),i.getName());
                 }
-                //animation
                 if(i.getName().equals(startVertex.getName())){
                     LinkedList<Vertex> tempRoute=new LinkedList<>();
-                    //System.out.println(startVertex.getRoutes());
                     for(VertexRoute j:startVertex.getRoutes()){
                         if(j.getEndVertex().getName().equals(endVertex.getName())){
                             tempRoute.addAll(j.getPrevious());
@@ -142,7 +135,6 @@ public class Algorithm {
                     }catch (Exception e){}
                     jsonMinRouteForAnimation.clear();
                     jsonMinRouteForAnimation.put("route",array);
-                    //System.out.println(jsonMinRouteForAnimation.toString());
                 }
             }
             v.setActive(false);
@@ -153,8 +145,6 @@ public class Algorithm {
         jsonMinRouteForAnimation.clear();
     }
 
-
-    //jo setParent-ből lett discovery
     private void graphDiscovery(boolean isSleeping){
         LinkedList<Vertex> queue=new LinkedList<>();
         queue.add(startVertex);
@@ -177,8 +167,6 @@ public class Algorithm {
         }
     }
 
-
-
     private Client getClient(Vertex v){
         for (Client client:clients){
             if(client.getVertex().equals(v)){
@@ -188,42 +176,23 @@ public class Algorithm {
         return null;
     }
 
-
-    public static void getMessages(String msg){
-        JSONParser parser=new JSONParser();
-        try {
-            JSONObject object=(JSONObject) parser.parse(msg);
-            String producerName=(String) object.get("producerName");
-            String text=(String) object.get("message");
-            String consumerName=(String) object.get("consumerName");
-            messages.put(new Vertex(consumerName),text);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-    }
-
     private void createQueues(){
         for (Client client : clients){
             client.createQueue();
         }
     }
 
-
     private void createClients(){
         for (int i = 0; i< graph.getVertices().size(); i++){
-            clients.add(new Client(i, graph.getVertices().get(i)));
-            //System.out.println(clients.get(i).toSting());
+            clients.add(new Client(graph.getVertices().get(i)));
         }
     }
-
-
 
     private Graph readGraph() {
         try {
             return GraphReader.graphFromFile(input);
         } catch (Exception e) {
-            //e.printStackTrace();
+
         }
         return null;
     }
@@ -237,11 +206,6 @@ public class Algorithm {
     }
 
 
-    @Override
-    public String toString() {
-        return startVertex.toString()+" "+endVertex.toString()+" Msg: "+messages.toString();
-    }
-
     private void closeClients() {
         for(Client i:clients){
             i.getConsumer().close();
@@ -252,10 +216,28 @@ public class Algorithm {
         return minRoute.toString()+" "+finalDistance;
     }
 
+    public static List<String> getMessages() {
+        return messages;
+    }
+
+    private void writeAllMessagesToFile() {
+        try(PrintWriter printWriter=new PrintWriter(new FileWriter("output/messages.txt",true))){
+            printWriter.println("All messages for: "+startVertex.getName()+" - "+endVertex.getName());
+            printWriter.println(new Date().toString());
+            for(String i:messages){
+                printWriter.println(i);
+            }
+            messages.clear();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void sleep(JSONObject object, boolean isSleeping, int time){
         if(isSleeping){
             try {
-                System.out.println(object.toString());
                 Thread.sleep(time);
                 object.clear();
             } catch (InterruptedException e) {

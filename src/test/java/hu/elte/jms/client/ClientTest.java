@@ -29,8 +29,8 @@ public class ClientTest {
         c=new Vertex("c");
         aToB =new Edge(1.0);
         aToC =new Edge(2.0);
-        clientA =new Client(0,a);
-        clientB =new Client(1,b);
+        clientA =new Client(a);
+        clientB =new Client(b);
         graph.addEdge(aToB,a,b);
         graph.addEdge(aToC,a,c);
     }

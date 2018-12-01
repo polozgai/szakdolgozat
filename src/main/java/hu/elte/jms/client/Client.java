@@ -18,14 +18,12 @@ import java.util.Set;
 
 public class Client implements MessageListener {
 
-    private int id;
     private Vertex vertex;
     private Consumer consumer;
     private Producer producer;
 
 
-    public Client(int id, Vertex vertex){
-        this.id=id;
+    public Client(Vertex vertex){
         this.vertex=vertex;
         this.consumer=new Consumer(vertex.getName());
         this.producer=new Producer(vertex.getName());
@@ -39,9 +37,7 @@ public class Client implements MessageListener {
             JSONParser parser=new JSONParser();
             JSONObject object=(JSONObject) parser.parse(text);
             fullMessageProcessing(object);
-
-            Algorithm.getMessages(textMessage.getText());
-            //System.out.println(textMessage.getText());
+            Algorithm.getMessages().add(object.toString());
         } catch (JMSException e) {
             e.printStackTrace();
         } catch (ParseException e) {
@@ -75,7 +71,6 @@ public class Client implements MessageListener {
         System.out.println(message.toString());
         String msg= (String) message.get("message");
         String producerName= (String) message.get("producerName");
-        //vertex.deleteFromNeighbour(producerName);
         JSONParser parser=new JSONParser();
         try {
             JSONObject object=(JSONObject) parser.parse(msg);
@@ -87,7 +82,6 @@ public class Client implements MessageListener {
             }
             value= object.get(key).toString();
             partMessageProcessing(key,value);
-            //System.out.println(value);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -95,8 +89,7 @@ public class Client implements MessageListener {
 
     private void partMessageProcessing(String key,String value){
         switch (key){
-            case "SEND_ROUTES": //System.out.println(value);
-                                vertex.processRoutes(value);
+            case "SEND_ROUTES": vertex.processRoutes(value);
                                 break;
         }
     }

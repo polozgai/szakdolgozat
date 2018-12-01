@@ -1,7 +1,7 @@
 
 
 function Get(yourUrl){
-    var Httpreq = new XMLHttpRequest(); // a new request
+    var Httpreq = new XMLHttpRequest();
     Httpreq.open("GET",yourUrl,false);
     Httpreq.send(null);
     return Httpreq.responseText;
@@ -61,8 +61,6 @@ function graph(){
             temp.push(graph);
             map.set(count,graph);
             count++;
-            //x=Math.floor(Math.random()*350);
-            //y=Math.floor(Math.random()*350);
             if(count%2==0){
                 x+=20;
                 y+=20
@@ -70,31 +68,17 @@ function graph(){
                 x+=20;
                 y-=20;
             }
-            /*if(count%4==0){
-                x+=100;
-                y+=100;
-            }else if(count%4==1){
-                x+=100;
-                y-=100;
-            }else if(count%4==2){
-                x-=100;
-                y+=100;
-            }else{
-                x-=100;
-                y-=100;
-            }*/
+
             array.add({
                 id:array.length, label:graph, x:x, y:y,color:{background:'#3FF31B'}
             });
-            //console.log(array);
         }
 
         addEdges();
 
         if(array.length==size){
-        console.log("graph_vege");
+            console.log("graph_vege");
             clearInterval(id);
-            //console.log(map);
             console.log(temp);
             console.log(network);
             colorChange();
@@ -111,7 +95,6 @@ function addEdges(){
     for(var i=0;i<graphByNode.length;i++){
         arr.push(graphByNode[i].split(" "));
     }
-    //console.log(arr);
         for(var i=0;i<arr.length;i++){
             var from=getId(arr[i][0]);
             var to=getId(arr[i][1]);
@@ -151,7 +134,6 @@ function colorChange(){
 
         for(var i=0;i<array.length;i++){
             if(array._data[i].label==colors){
-                //console.log(getId(colors));
                 array.update({id:getId(colors), color:{background:'#f42525'}})
             }
         }
@@ -159,7 +141,6 @@ function colorChange(){
         var routeJson=Get("http://localhost:4567/routeStepByStep");
         var route=JSON.parse(routeJson);
         route=route.route;
-        //console.log(route);
 
         if(typeof route!=='undefined'){
             edgeChange(route);
@@ -173,11 +154,11 @@ function colorChange(){
             console.log(realEdges);
             for(var i=0;i<array.length;i++){
                 if(array._data[i].label==colors){
-                    //console.log(getId(colors));
                     array.update({id:getId(colors), color:{background:'#f42525'}})
                 }
             }
             document.getElementsByName("button")[0].disabled = false;
+            document.getElementsByName("basic")[0].disabled=false;
         }
     },2000);
 }
@@ -213,11 +194,7 @@ function edgeChange(param){
         }
     }
 
-    //console.log(array);
 }
-
-
-
 
 
 

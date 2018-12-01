@@ -65,7 +65,6 @@ public class Server {
 
     private void startAlgorithm(boolean sleep){
         Algorithm algorithm=new Algorithm();
-        System.out.println(start+" "+end);
         algorithm.computeAlgorithm(start,end,sleep);
     }
 
