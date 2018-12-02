@@ -18,7 +18,7 @@ import java.util.List;
 public class Algorithm {
 
     private static Graph graph;
-    private List<Client> clients=new ArrayList<>();
+    private List<Client> clients=new LinkedList<>();
     private Vertex startVertex;
     private Vertex endVertex;
     private static List<String> messages=new LinkedList<>();
@@ -28,7 +28,7 @@ public class Algorithm {
     private static JSONObject jsonGraphByNodeForColorChange =new JSONObject();
     private static JSONObject jsonMinRouteForAnimation =new JSONObject();
     private static JSONObject allNodes=new JSONObject();
-    private Double finalDistance;
+    private Double finalDistanceCost;
 
     private static final String input= "input/graph.txt";
 
@@ -55,7 +55,7 @@ public class Algorithm {
 
         for(VertexRoute i:startVertex.getRoutes()){
             if(i.getEndVertex().equals(endVertex)){
-                finalDistance=i.getDistance();
+                finalDistanceCost =i.getDistance();
                 minRoute.addAll(i.getPrevious());
             }
         }
@@ -63,7 +63,7 @@ public class Algorithm {
         minRoute.addFirst(startVertex);
         minRoute.addLast(endVertex);
 
-        System.out.println(finalDistance);
+        System.out.println(finalDistanceCost);
 
         closeClients();
 
@@ -213,7 +213,7 @@ public class Algorithm {
     }
 
     public String getMinRouteWithWeight(){
-        return minRoute.toString()+" "+finalDistance;
+        return minRoute.toString()+" "+ finalDistanceCost;
     }
 
     public static List<String> getMessages() {
@@ -227,6 +227,9 @@ public class Algorithm {
             for(String i:messages){
                 printWriter.println(i);
             }
+            printWriter.println("Route: "+ minRoute.toString());
+            printWriter.println("Cost: "+ finalDistanceCost);
+            printWriter.println("Minimal spanning tree ([first vertex] [second vertex] [cost] [previous list]): "+startVertex.getRoutes().toString());
             messages.clear();
         } catch (FileNotFoundException e) {
             e.printStackTrace();

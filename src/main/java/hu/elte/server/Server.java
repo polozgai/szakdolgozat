@@ -5,9 +5,7 @@ import hu.elte.graph.GraphReader;
 import spark.Spark;
 import spark.utils.IOUtils;
 
-import static spark.Spark.get;
-import static spark.Spark.post;
-import static spark.Spark.staticFiles;
+import static spark.Spark.*;
 
 public class Server {
 
@@ -61,12 +59,19 @@ public class Server {
             return "";
         });
 
+
+        post("/stop",(req,res)->{
+            stop();
+            return "";
+        });
+
     }
 
     private void startAlgorithm(boolean sleep){
         Algorithm algorithm=new Algorithm();
         algorithm.computeAlgorithm(start,end,sleep);
     }
+
 
     public void setStart(String start) {
         this.start = start;

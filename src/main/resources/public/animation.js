@@ -157,8 +157,9 @@ function colorChange(){
                     array.update({id:getId(colors), color:{background:'#f42525'}})
                 }
             }
-            document.getElementsByName("button")[0].disabled = false;
+            document.getElementsByName("animation")[0].disabled = false;
             document.getElementsByName("basic")[0].disabled=false;
+            document.getElementsByName("stop")[0].disabled=false;
         }
     },2000);
 }

@@ -96,5 +96,6 @@ function Get(yourUrl){
   };
  var network = new vis.Network(container, data, options);
 
-    document.getElementsByName("button")[0].disabled = false;
+    document.getElementsByName("animation")[0].disabled = false;
     document.getElementsByName("basic")[0].disabled=false;
+    document.getElementsByName("stop")[0].disabled=false;

@@ -30,7 +30,7 @@
                                     <mainClass>hu.elte.Main</mainClass>
                                 </transformer>
                             </transformers>
-                            <finalName>${project.artifactId}-${project.version}</finalName>
+                            <finalName>JMSGraphAlgorithm</finalName>
                             <outputDirectory>${basedir}${file.separator}target${file.separator}App</outputDirectory>
                         </configuration>
                     </execution>

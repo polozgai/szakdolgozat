@@ -35,6 +35,11 @@
         left:500px;
         bottom: 655px;
     }
+    #stop{
+        position:relative;
+        left:650px;
+        bottom: 695px;
+    }
 
   </style>
 
@@ -88,12 +93,23 @@ function validateSubmit(){
                          style="position: relative; overflow: hidden; touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); width: 100%; height: 100%;"><canvas width="600" height="600" style="position: relative; touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); width: 100%; height: 100%;"></canvas></div></div>
 
 <form action="/animation" method="post" id="formAnimation">
-    <button type="button" name="button" id="animation" value="button" onclick="animationFunc()">Animation</button>
+    <button type="button" name="animation" id="animation" value="animation" onclick="animationFunc()">Animation</button>
 </form>
 <form action="/basic" method="post" id="formBasic">
     <button type="button" name="basic" id="basic" value="basic" onclick="basicFunc()">Basic</button>
 </form>
+
+<form action="/stop" method="post" id="formRestart">
+    <button type="button" name="stop" id="stop" value="stop" onclick="stopFunc()">Stop Server</button>
+</form>
 <script type="text/javascript">
+
+function stopFunc(){
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "POST", "http://localhost:4567/stop", true );
+    xmlHttp.send( "true" );
+    window.location="error.html";
+}
 
 function sleep(delay) {
     var start = new Date().getTime();
@@ -101,8 +117,13 @@ function sleep(delay) {
 }
 
 function animationFunc(){
-    document.getElementsByName("button")[0].disabled = true;
+    if(document.forms["myForm"]["start"].value=="" || document.forms["myForm"]["end"].value==""){
+        alert("Please first fill the start and end node and click on Submit");
+        return false;
+    }
+    document.getElementsByName("animation")[0].disabled = true;
     document.getElementsByName("basic")[0].disabled=true;
+    document.getElementsByName("stop")[0].disabled=true;
     var star=new Date();
     sleep(1000);
     var xmlHttp = new XMLHttpRequest();
@@ -118,8 +139,13 @@ function animationFunc(){
 }
 
 function basicFunc(){
-    document.getElementsByName("button")[0].disabled = true;
+    if(document.forms["myForm"]["start"].value=="" || document.forms["myForm"]["end"].value==""){
+        alert("Please first fill the start and end node and click on Submit");
+        return false;
+    }
+    document.getElementsByName("animation")[0].disabled = true;
     document.getElementsByName("basic")[0].disabled=true;
+    document.getElementsByName("stop")[0].disabled=true;
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open( "POST", "http://localhost:4567/animation", true );
     xmlHttp.send( "false" );
