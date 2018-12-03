@@ -11,7 +11,7 @@ public class GraphReaderTest {
         assertNotNull(GraphReader.graphFromFile("input/graph.txt"));
     }
 
-    @Test (expected = Exception.class)
+    @Test
     public void graphFromFileNull() throws Exception {
         assertNull(GraphReader.graphFromFile(""));
     }

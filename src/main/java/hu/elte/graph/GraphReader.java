@@ -29,6 +29,7 @@ public class GraphReader {
             }
         } catch (Exception e) {
             System.out.println("GraphReader.java Hiba a beolvasasnal.");
+            return null;
         }
 
         object.put("graph",jsonArray);

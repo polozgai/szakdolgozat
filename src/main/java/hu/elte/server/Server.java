@@ -52,10 +52,10 @@ public class Server {
         post("/start",(req,res)->{
             String requestBody=req.body();
             String[] array=requestBody.split("&");
-            String[] start=array[0].split("=");
-            String[] end=array[1].split("=");
-            setStart(start[1]);
-            setEnd(end[1]);
+            String[] startArray=array[0].split("=");
+            String[] endArray=array[1].split("=");
+            start=startArray[1];
+            end=endArray[1];
             return "";
         });
 
@@ -73,11 +73,4 @@ public class Server {
     }
 
 
-    public void setStart(String start) {
-        this.start = start;
-    }
-
-    public void setEnd(String end) {
-        this.end = end;
-    }
 }

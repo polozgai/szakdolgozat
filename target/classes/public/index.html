@@ -67,13 +67,13 @@ function validateSubmit(){
     var start=document.forms["myForm"]["start"].value;
     var end=document.forms["myForm"]["end"].value;
     if(end===start){
-        alert("Start and End node are equals. Please select an other");
+        alert("A kezdő és a végpont megegyezik! Kérjük valamelyiket módosítsa!");
         return false;
     }else if(!allNodes.includes(start)){
-        alert("Bad start node. Please select an other");
+        alert("Hibás kezdő pont! Kérjük válasszon másikat!");
         return false;
     } else if(!allNodes.includes(end)){
-        alert("Bad end node. Please select an other");
+        alert("Hibás vég pont! Kérjük válasszon másikat!");
         return false;
     }
 }
@@ -107,7 +107,7 @@ function validateSubmit(){
 function stopFunc(){
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open( "POST", "http://localhost:4567/stop", true );
-    xmlHttp.send( "true" );
+    xmlHttp.send( null );
     window.location="error.html";
 }
 
@@ -118,7 +118,7 @@ function sleep(delay) {
 
 function animationFunc(){
     if(document.forms["myForm"]["start"].value=="" || document.forms["myForm"]["end"].value==""){
-        alert("Please first fill the start and end node and click on Submit");
+        alert("Kérjük adja meg a kezdő és végpontot és kattintson a Submit gombra");
         return false;
     }
     document.getElementsByName("animation")[0].disabled = true;
@@ -140,14 +140,14 @@ function animationFunc(){
 
 function basicFunc(){
     if(document.forms["myForm"]["start"].value=="" || document.forms["myForm"]["end"].value==""){
-        alert("Please first fill the start and end node and click on Submit");
+        alert("Kérjük adja meg a kezdő és végpontot és kattintson a Submit gombra");
         return false;
     }
     document.getElementsByName("animation")[0].disabled = true;
     document.getElementsByName("basic")[0].disabled=true;
     document.getElementsByName("stop")[0].disabled=true;
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "POST", "http://localhost:4567/animation", true );
+    xmlHttp.open( "POST", "http://localhost:4567/basic", true );
     xmlHttp.send( "false" );
     sleep(1000);
     var script = document.createElement("script");
