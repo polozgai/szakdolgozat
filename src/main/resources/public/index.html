@@ -66,14 +66,17 @@ for(var i=0;i<allNodes.length;i++){
 function validateSubmit(){
     var start=document.forms["myForm"]["start"].value;
     var end=document.forms["myForm"]["end"].value;
-    if(end===start){
+    if(end=="" && start==""){
+        alert("A kezdő és a végpont üres! Töltse ki a mezőket!");
+        return false;
+    }else if(end===start){
         alert("A kezdő és a végpont megegyezik! Kérjük valamelyiket módosítsa!");
         return false;
     }else if(!allNodes.includes(start)){
-        alert("Hibás kezdő pont! Kérjük válasszon másikat!");
+        alert("Hibás kezdőpont! Kérjük válasszon másikat!");
         return false;
     } else if(!allNodes.includes(end)){
-        alert("Hibás vég pont! Kérjük válasszon másikat!");
+        alert("Hibás végpont! Kérjük válasszon másikat!");
         return false;
     }
 }
@@ -117,8 +120,9 @@ function sleep(delay) {
 }
 
 function animationFunc(){
-    if(document.forms["myForm"]["start"].value=="" || document.forms["myForm"]["end"].value==""){
-        alert("Kérjük adja meg a kezdő és végpontot és kattintson a Submit gombra");
+    if(document.forms["myForm"]["start"].value=="" || document.forms["myForm"]["end"].value==""
+    || document.forms["myForm"]["start"].value==document.forms["myForm"]["end"].value){
+        alert("Kérjük helyesen adja meg a kezdő és végpontot és kattintson a Submit gombra");
         return false;
     }
     document.getElementsByName("animation")[0].disabled = true;
@@ -139,7 +143,8 @@ function animationFunc(){
 }
 
 function basicFunc(){
-    if(document.forms["myForm"]["start"].value=="" || document.forms["myForm"]["end"].value==""){
+    if(document.forms["myForm"]["start"].value=="" || document.forms["myForm"]["end"].value==""
+     || document.forms["myForm"]["start"].value==document.forms["myForm"]["end"].value){
         alert("Kérjük adja meg a kezdő és végpontot és kattintson a Submit gombra");
         return false;
     }

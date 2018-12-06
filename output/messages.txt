@@ -1,5 +1,5 @@
 All messages for: a - g
-Mon Dec 03 21:55:40 CET 2018
+Thu Dec 06 15:59:08 CET 2018
 {"producerName":"g","message":"{\"SEND_ROUTES\":[{\"previous\":\"[]\",\"value\":1.0,\"key\":\"g f\"}]}","consumerName":"f"}
 {"producerName":"f","message":"{\"SEND_ROUTES\":[{\"previous\":\"[]\",\"value\":4.0,\"key\":\"f c\"},{\"previous\":\"[]\",\"value\":1.0,\"key\":\"f e\"},{\"previous\":\"[]\",\"value\":1.0,\"key\":\"f g\"}]}","consumerName":"c"}
 {"producerName":"f","message":"{\"SEND_ROUTES\":[{\"previous\":\"[]\",\"value\":4.0,\"key\":\"f c\"},{\"previous\":\"[]\",\"value\":1.0,\"key\":\"f e\"},{\"previous\":\"[]\",\"value\":1.0,\"key\":\"f g\"}]}","consumerName":"e"}
