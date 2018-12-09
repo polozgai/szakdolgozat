@@ -68,7 +68,6 @@ public class Client implements MessageListener {
 
 
     private void fullMessageProcessing(JSONObject message){
-        System.out.println(message.toString());
         String msg= (String) message.get("message");
         String producerName= (String) message.get("producerName");
         JSONParser parser=new JSONParser();

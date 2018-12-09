@@ -63,7 +63,6 @@ public class Algorithm {
         minRoute.addFirst(startVertex);
         minRoute.addLast(endVertex);
 
-        System.out.println(finalDistanceCost);
 
         closeClients();
 
