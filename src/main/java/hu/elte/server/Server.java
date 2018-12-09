@@ -1,7 +1,9 @@
 package hu.elte.server;
 
+import hu.elte.Main;
 import hu.elte.algorithm.Algorithm;
 import hu.elte.graph.GraphReader;
+import org.apache.activemq.broker.BrokerService;
 import spark.Spark;
 import spark.utils.IOUtils;
 
@@ -62,6 +64,7 @@ public class Server {
 
         post("/stop",(req,res)->{
             stop();
+            Main.getBrokerService().stop();
             return "";
         });
 

@@ -3,6 +3,8 @@ package hu.elte.jms.client;
 import hu.elte.graph.Edge;
 import hu.elte.graph.Graph;
 import hu.elte.graph.Vertex;
+import org.apache.activemq.broker.BrokerService;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,9 +22,13 @@ public class ClientTest {
     private Client clientB;
     private Edge aToB;
     private Edge aToC;
+    private BrokerService brokerService;
 
     @Before
     public void setUp() throws Exception {
+        brokerService=new BrokerService();
+        brokerService.addConnector("tcp://localhost:61616");
+        brokerService.start();
         graph=new Graph();
         a=new Vertex("a");
         b=new Vertex("b");
@@ -33,6 +39,11 @@ public class ClientTest {
         clientB =new Client(b);
         graph.addEdge(aToB,a,b);
         graph.addEdge(aToC,a,c);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        brokerService.stop();
     }
 
 

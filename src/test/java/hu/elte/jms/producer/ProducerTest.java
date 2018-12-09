@@ -2,6 +2,8 @@ package hu.elte.jms.producer;
 
 import hu.elte.jms.consumer.Consumer;
 import hu.elte.jms.message.AlgorithmMessage;
+import org.apache.activemq.broker.BrokerService;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,13 +21,22 @@ public class ProducerTest {
     private Consumer consumer;
     private String consumerName;
     private String producerName;
+    private BrokerService brokerService;
 
     @Before
-    public void setUp(){
+    public void setUp() throws Exception {
+        brokerService=new BrokerService();
+        brokerService.addConnector("tcp://localhost:61616");
+        brokerService.start();
         producerName="producer";
         consumerName="test";
         consumer=new Consumer(consumerName);
         producer=new Producer(producerName);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        brokerService.stop();
     }
 
     @Test

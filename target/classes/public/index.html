@@ -153,6 +153,7 @@ function basicFunc(){
     document.getElementsByName("stop")[0].disabled=true;
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open( "POST", "http://localhost:4567/basic", true );
+    xmlHttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xmlHttp.send( "false" );
     sleep(1000);
     var script = document.createElement("script");
