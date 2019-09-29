@@ -4,4 +4,7 @@ Check out my thesis, which calculates the shortest path in a graph, and also det
 
 More details coming soon.
 
+# Figyelem! A plagizálásnak jogi következményei lehetnek!
+# Attention! Plagiarism can have legal consequences!
+
 All rights reserved. 
