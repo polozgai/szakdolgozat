@@ -1,5 +1,5 @@
 # szakdolgozat
 
-#More details coming soon in english.
+More details coming soon in english.
 
-#All rights reserved. 
+All rights reserved. 
